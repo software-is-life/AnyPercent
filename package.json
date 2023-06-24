@@ -1,0 +1,25 @@
+{
+  "name": "anypercent",
+  "version": "1.0.0",
+  "description": "collect-a-thon focused map traversal with user generated routes & activites.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "map",
+    "collect-a-thon",
+    "geolocation",
+    "node",
+    "typescript",
+    "animation"
+  ],
+  "author": "Kevin Carr",
+  "license": "MIT",
+  "dependencies": {
+    "@radarlabs/s2": "^0.0.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1"
+  }
+}

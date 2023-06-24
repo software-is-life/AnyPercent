@@ -12,5 +12,13 @@ starting June 24th, 2023 until July 24th, 2023 (over a 30 day period).
 
 Here is the blog post [series](https://software-is-life.ghost.io/blogging-again/).
 
+### Technologies Used
+- Google S2 with Radar's Node.js wrapper
+- Typescript
+- React
+- Node.js
+- Postgresql with TypeORM
+- Mapbox and react-web-gl
+
 ### Setup
 *TBD*

@@ -1,1 +1,4 @@
 node_modules/
+exp/*
+exp/
+package-lock.json

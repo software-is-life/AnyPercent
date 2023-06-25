@@ -25,4 +25,21 @@ Here is the blog post [series](https://software-is-life.ghost.io/blogging-again/
 - Is there a way to create an api and port open street maps to a postgres db with postgis extension?
 
 ### Setup
-*TBD*
+
+Run docker compose to get postgres database locally up and running
+```text
+docker-compose up -d
+```
+
+Start AnyPercent program
+```text
+npm run start
+```
+
+Call different endpoints with cURL or Postman. Locally, npm run start will be running on port :8080
+```text
+curl -X GET localhost:8080/api/v1/users/get/9
+curl -X POST -d '{"firstName": "John", "lastName": "Doe", "age": 25 }' -H "Content-Type: application/json" localhost:8080/api/v1/users/create
+curl -X PUT -d '{"age": 36 }' -H "Content-Type: application/json" localhost:8080/api/v1/users/update/1
+curl -X DELETE localhost:8080/api/v1/users/delete/2 
+```

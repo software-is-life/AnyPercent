@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
-// TODO: fill out more entities from DB design
 @Entity()
 export class User {
+
     @PrimaryGeneratedColumn()
     id: number
 
@@ -14,4 +14,5 @@ export class User {
 
     @Column()
     age: number
+
 }

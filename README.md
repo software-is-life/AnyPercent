@@ -19,6 +19,10 @@ Here is the blog post [series](https://software-is-life.ghost.io/blogging-again/
 - Node.js
 - Postgresql with TypeORM
 - Mapbox and react-web-gl
+- Next.js for SSR
+
+### Questions
+- Is there a way to create an api and port open street maps to a postgres db with postgis extension?
 
 ### Setup
 *TBD*

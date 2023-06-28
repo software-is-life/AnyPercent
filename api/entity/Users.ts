@@ -2,12 +2,14 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
 import { Geometry } from 'geojson';
 import {UserLocationData} from "./UserLocationData";
 import {UserAchievements} from "./UserAchievements";
+import {Routes} from "./Routes";
+import {Reviews} from "./Reviews";
 
 @Entity()
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    userId: number
 
     @Column()
     firstName: string
@@ -32,4 +34,10 @@ export class User {
 
     @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.user)
     userAchievements: UserAchievements[]
+
+    @OneToMany(() => Routes, (routes) => routes.author)
+    routesAuthored: Routes[]
+
+    @OneToMany(() => Reviews, (reviews) => reviews.author)
+    reviewsAuthored: Reviews[]
 }

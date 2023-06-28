@@ -6,7 +6,7 @@ import {User} from "./Users";
 @Entity()
 export class UserLocationData {
     @PrimaryGeneratedColumn()
-    id: number
+    userLocationDataId: number
 
     @Column()
     timestamp: Date

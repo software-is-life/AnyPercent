@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm"
 import { Geometry } from 'geojson';
+import {UserLocationData} from "./UserLocationData";
+import {UserAchievements} from "./UserAchievements";
 
 @Entity()
 export class User {
@@ -25,7 +27,9 @@ export class User {
     @Column()
     location: Geometry
 
+    @OneToMany(() => UserLocationData, (userLocationData) => userLocationData.user)
+    userLocationDataPoints: UserLocationData[]
 
-    // TODO add one to many and many to many relationships between UserLocationHistory
-    // TODO UserAchievements and Maps
+    @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.user)
+    userAchievements: UserAchievements[]
 }

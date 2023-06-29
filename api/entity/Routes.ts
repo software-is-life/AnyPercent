@@ -1,9 +1,10 @@
-import {Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Achievements} from "./Achievements";
 import {User} from "./Users";
 import {CityMap} from "./CityMap";
 import {Places} from "./Places";
 import {Events} from './Events';
+import {Reviews} from "./Reviews";
 
 @Entity()
 export class Routes {
@@ -34,5 +35,6 @@ export class Routes {
     @ManyToMany(() => Places, (places) => places.routes)
     places: Places[]
 
-    // TODO: Add Reviews relation
+    @OneToMany(() => Reviews, (reviews) => reviews.route)
+    reviews: Reviews[]
 }

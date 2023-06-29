@@ -1,6 +1,7 @@
-import {Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {CityMap} from "./CityMap";
 import {Routes} from "./Routes";
+import {Reviews} from "./Reviews";
 
 @Entity()
 export class Events {
@@ -16,5 +17,6 @@ export class Events {
     @ManyToMany(() => Routes, (routes) => routes.events)
     routes: Routes[]
 
-    // Add Reviews relation
+    @OneToMany(() => Reviews, (reviews) => reviews.event)
+    reviews: Reviews[]
 }

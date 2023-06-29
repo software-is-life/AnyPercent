@@ -6,7 +6,16 @@ import {Events} from "./Events";
 @Entity()
 export class CityMap {
     @PrimaryGeneratedColumn()
-    CityMap: number
+    cityMapId: number
+
+    @Column()
+    name: string
+
+    @Column()
+    province: string
+
+    @Column()
+    country: string
 
     @Column({type: 'bigint'})
     regions: string[]

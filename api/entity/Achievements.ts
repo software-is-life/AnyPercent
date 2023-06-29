@@ -26,6 +26,4 @@ export class Achievements {
     @ManyToMany(() => Routes, (routes) => routes.achievements)
     @JoinTable()
     routes: Routes[]
-
-    // badges
 }

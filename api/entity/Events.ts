@@ -8,6 +8,15 @@ export class Events {
     @PrimaryGeneratedColumn()
     eventId: number
 
+    @Column()
+    name: string
+
+    @Column()
+    description: string
+
+    @Column()
+    owner: string
+
     @Column({type: 'bigint'})
     cityRegionId: string
 

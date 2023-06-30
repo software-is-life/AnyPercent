@@ -6,8 +6,8 @@ import {Geometry} from "geojson";
 
 @Entity()
 export class UserAchievements {
-    @PrimaryGeneratedColumn()
-    userAchievementId: number
+    @PrimaryGeneratedColumn("uuid")
+    userAchievementId: string
 
     @ManyToOne(() => Users, (users) => users.userAchievements)
     user: User

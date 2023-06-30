@@ -8,8 +8,8 @@ import {Reviews} from "./Reviews";
 
 @Entity()
 export class Routes {
-    @PrimaryGeneratedColumn()
-    routeId: number
+    @PrimaryGeneratedColumn("uuid")
+    routeId: string
 
     @Column({type: 'bigint'})
     cityRegionId: string

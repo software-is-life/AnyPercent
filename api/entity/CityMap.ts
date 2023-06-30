@@ -5,8 +5,8 @@ import {Events} from "./Events";
 
 @Entity()
 export class CityMap {
-    @PrimaryGeneratedColumn()
-    cityMapId: number
+    @PrimaryGeneratedColumn("uuid")
+    cityMapId: string
 
     @Column()
     name: string

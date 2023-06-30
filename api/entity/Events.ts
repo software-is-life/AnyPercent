@@ -5,8 +5,8 @@ import {Reviews} from "./Reviews";
 
 @Entity()
 export class Events {
-    @PrimaryGeneratedColumn()
-    eventId: number
+    @PrimaryGeneratedColumn("uuid")
+    eventId: string
 
     @Column()
     name: string

@@ -5,8 +5,8 @@ import {Routes} from "./Routes";
 
 @Entity()
 export class Achievements {
-    @PrimaryGeneratedColumn()
-    achievementId: number
+    @PrimaryGeneratedColumn("uuid")
+    achievementId: string
 
     @Column()
     name: string

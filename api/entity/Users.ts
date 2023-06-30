@@ -8,8 +8,8 @@ import {Reviews} from "./Reviews";
 @Entity()
 export class User {
 
-    @PrimaryGeneratedColumn()
-    userId: number
+    @PrimaryGeneratedColumn("uuid")
+    userId: string
 
     @Column()
     firstName: string

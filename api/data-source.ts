@@ -19,17 +19,7 @@ export const AppDataSource = new DataSource({
     database: "test",
     synchronize: true,
     logging: true,
-    entities: [
-        User,
-        UserLocationData,
-        UserAchievements,
-        Achievements,
-        Routes,
-        Reviews,
-        Places,
-        Events,
-        CityMap
-    ],
+    entities: ["entity/*.ts"],
     migrations: [],
     subscribers: [],
 });

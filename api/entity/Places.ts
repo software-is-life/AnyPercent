@@ -5,8 +5,8 @@ import {Reviews} from "./Reviews";
 
 @Entity()
 export class Places {
-    @PrimaryGeneratedColumn()
-    placesId: number
+    @PrimaryGeneratedColumn("uuid")
+    placesId: string
 
     @Column({type: 'bigint'})
     cityRegionId: string

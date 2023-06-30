@@ -5,8 +5,8 @@ import {User} from "./Users";
 
 @Entity()
 export class UserLocationData {
-    @PrimaryGeneratedColumn()
-    userLocationDataId: number
+    @PrimaryGeneratedColumn("uuid")
+    userLocationDataId: string
 
     @Column()
     timestamp: Date

@@ -6,8 +6,8 @@ import {Routes} from "./Routes";
 
 @Entity()
 export class Reviews {
-    @PrimaryGeneratedColumn()
-    reviewId: number
+    @PrimaryGeneratedColumn("uuid")
+    reviewId: string
 
     @Column()
     title: string

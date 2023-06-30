@@ -28,6 +28,7 @@ app.use(cors());
 // ROUTES
 // app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/vq/userAchievements', userAchievementsRouter);
 // app.use('/api/photos', photosRouter);
 
 // UNHANDLED ROUTE

@@ -17,7 +17,6 @@ export const createUserHandler = async (
             },
         });
     } catch (err: any) {
-
         console.error(err);
         return res.status(500).json({
             status: 'fail',

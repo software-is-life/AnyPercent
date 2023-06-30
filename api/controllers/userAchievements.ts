@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { retrieveUserAchievements } from '../services/userAchievements';
 
 export const retrieveUserAchievementsHandler = async (
     req: Request,
@@ -6,7 +7,7 @@ export const retrieveUserAchievementsHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     try {
-        const userAchievements = await getUserAchievements(req.params.id);
+        const userAchievements = await retrieveUserAchievements(req.params.id);
         // TODO: incorporate pagination with user achievements if needed
         // typeorm pagination: https://typeorm.io/select-query-builder#using-pagination
         res.status(201).json({

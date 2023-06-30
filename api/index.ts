@@ -5,7 +5,12 @@ import { User } from "./entity/Users";
 import * as morgan from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
+
+// Routers
+import authRouter from './routes/auth';
 import userRouter from './routes/users';
+import userAchievementsRouter from './routes/userAchievements';
+
 
 
 AppDataSource
@@ -26,7 +31,7 @@ app.use(cookieParser());
 app.use(cors());
 
 // ROUTES
-// app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/vq/userAchievements', userAchievementsRouter);
 // app.use('/api/photos', photosRouter);

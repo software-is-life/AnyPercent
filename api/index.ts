@@ -5,6 +5,10 @@ import { User } from "./entity/Users";
 import * as morgan from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
+import * as googleStrategy from "./authorization/passportStrategies/googleStrategy";
+import * as facebookStrategy from "./authorization/passportStrategies/facebookStrategy";
+import * as discordStrategy from "./authorization/passportStrategies/discordStrategy";
+import * as githubStrategy from "./authorization/passportStrategies/githubStrategy";
 
 // Routers
 import authRouter from './routes/auth';
@@ -25,10 +29,23 @@ const app = express();
 // MIDDLEWARE
 app.use(express.json());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
-
 app.use(cookieParser());
-
 app.use(cors());
+
+const session = require('express-session');
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: true }
+}));
+
+const passport = require('passport');
+passport.use(googleStrategy);
+passport.use(facebookStrategy);
+passport.use(discordStrategy);
+passport.use(githubStrategy);
+app.use(passport.session());
 
 // ROUTES
 app.use('/api/v1/auth', authRouter);

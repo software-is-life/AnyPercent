@@ -29,6 +29,10 @@ export class User {
     @Column()
     location: Geometry
 
+    // TODO: look up how Waze does there user point system
+    @Column()
+    points: number
+
     @OneToMany(() => UserLocationData, (userLocationData) => userLocationData.user)
     userLocationDataPoints: UserLocationData[]
 

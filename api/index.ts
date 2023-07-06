@@ -14,6 +14,7 @@ import * as githubStrategy from "./authorization/passportStrategies/githubStrate
 import authRouter from './routes/auth';
 import userRouter from './routes/users';
 import userAchievementsRouter from './routes/userAchievements';
+import routesRouter from './routes/routes';
 
 
 
@@ -48,9 +49,10 @@ passport.use(githubStrategy);
 app.use(passport.session());
 
 // ROUTES
-app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/users', userRouter);
-app.use('/api/vq/userAchievements', userAchievementsRouter);
+app.use('/api/v1.0/auth', authRouter);
+app.use('/api/v1.0/users', userRouter);
+app.use('/api/v1.0/userAchievements', userAchievementsRouter);
+app.use('/api/v1.0/routes', routesRouter);
 // app.use('/api/photos', photosRouter);
 
 // UNHANDLED ROUTE

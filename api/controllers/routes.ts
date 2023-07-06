@@ -42,5 +42,4 @@ export const getPaginatedLocalRoutesHandler = async (
             message: err.message,
         })
     }
-
-}
+};

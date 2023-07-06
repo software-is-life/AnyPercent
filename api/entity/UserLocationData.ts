@@ -11,8 +11,8 @@ export class UserLocationData {
     @Column()
     timestamp: Date
 
-    @Column()
-    location: Geometry
+    @Column("point")
+    location: string
 
     @ManyToOne(() => Users, (users) => users.userLocationDataPoints)
     user: User

@@ -11,9 +11,9 @@ import {CityMap} from "./entity/CityMap";
 import {Events} from "./entity/Events";
 
 export const AppDataSource = new DataSource({
-    type: "postgres",
+    type: "mysql",
     host: "localhost",
-    port: 5432,
+    port: 3306,
     username: "test",
     password: "test",
     database: "test",

@@ -18,6 +18,6 @@ export class UserAchievements {
     @Column()
     status: string
 
-    @Column()
-    placesVisited: Geometry[]
+    @Column("point", { array: true })
+    placesVisited: string[]
 }

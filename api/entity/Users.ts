@@ -26,8 +26,8 @@ export class User {
     @Column({type: 'bigint'})
     homeCityId: string;
 
-    @Column()
-    location: Geometry
+    @Column("point")
+    locationCoordinates: string
 
     // TODO: look up how Waze does there user point system
     // research: https://www.waze.com//wiki/Canada/Your_Rank_and_Points

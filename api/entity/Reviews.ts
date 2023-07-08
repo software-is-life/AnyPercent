@@ -24,9 +24,6 @@ export class Reviews {
     @Column()
     rating: number
 
-    @Column()
-    likes: number
-
     @Index()
     @Column()
     reviewType: string

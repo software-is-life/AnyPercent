@@ -1,10 +1,21 @@
-import {Column, Entity, Generated, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    Entity,
+    Generated,
+    Index,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {Achievements} from "./Achievements";
 import {User} from "./Users";
 import {CityMap} from "./CityMap";
 import {Places} from "./Places";
 import {Events} from './Events';
 import {Reviews} from "./Reviews";
+import {Tags} from "./Tags";
 
 @Entity()
 export class Routes {
@@ -29,6 +40,9 @@ export class Routes {
     @ManyToOne(() => User, (user) => user.routesAuthored)
     author: User
 
+    @OneToMany(() => Reviews, (reviews) => reviews.route)
+    reviews: Reviews[]
+
     @ManyToOne(() => CityMap, (cityMap) => cityMap.regions)
     city: CityMap
 
@@ -41,6 +55,7 @@ export class Routes {
     @ManyToMany(() => Places, (places) => places.routes)
     places: Places[]
 
-    @OneToMany(() => Reviews, (reviews) => reviews.route)
-    reviews: Reviews[]
+    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @JoinTable()
+    tags: Tags[]
 }

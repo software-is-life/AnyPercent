@@ -1,8 +1,9 @@
-import {Column, Entity, Generated, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Generated, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./Users";
 import {Places} from "./Places";
 import {Events} from "./Events";
 import {Routes} from "./Routes";
+import {Tags} from "./Tags";
 
 @Entity()
 export class Reviews {
@@ -23,6 +24,9 @@ export class Reviews {
     @Column()
     rating: number
 
+    @Column()
+    likes: number
+
     @Index()
     @Column()
     reviewType: string
@@ -38,4 +42,8 @@ export class Reviews {
 
     @ManyToOne(() => Routes, (routes) => routes.reviews)
     route: Routes
+
+    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @JoinTable()
+    tags: Tags[]
 }

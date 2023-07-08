@@ -1,8 +1,19 @@
-import {Column, Entity, Generated, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    Entity,
+    Generated,
+    Index,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import {Routes} from "./Routes";
 import {CityMap} from "./CityMap";
 import {Reviews} from "./Reviews";
 import {User} from "./Users";
+import {Tags} from "./Tags";
 
 @Entity()
 export class Places {
@@ -34,9 +45,6 @@ export class Places {
     website: string
 
     @Column()
-    tags: string[]
-
-    @Column()
     rating: number
 
     @ManyToOne(() => CityMap, (cityMap) => cityMap.places)
@@ -44,6 +52,10 @@ export class Places {
 
     @ManyToOne(() => User, (user) => user.placesAuthored)
     author: User
+
+    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @JoinTable()
+    tags: Tags[]
 
     @ManyToMany(() => Routes, (routes) => routes.places)
     routes: Routes[]

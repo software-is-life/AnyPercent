@@ -1,6 +1,7 @@
 import {Column, Entity, Generated, Index, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {UserAchievements} from "./UserAchievements";
 import {Routes} from "./Routes";
+import {Tags} from "./Tags";
 
 @Entity()
 export class Achievements {
@@ -22,8 +23,9 @@ export class Achievements {
     @Column()
     author: string
 
-    @Column()
-    tags: string[]
+    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @JoinTable()
+    tags: Tags[]
 
     @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.achievement)
     userAchievements: UserAchievements[]

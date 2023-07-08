@@ -3,6 +3,13 @@ import Users from "../routes/users";
 import {User} from "./Users";
 import {Achievements} from "./Achievements";
 
+export enum AchievementStatus {
+    INPROGRESS = "inProgress",
+    BRONZE = "bronze",
+    SILVER = "silver",
+    GOLD = "gold"
+}
+
 @Entity()
 export class UserAchievements {
     @PrimaryGeneratedColumn("increment", { type: "bigint"})
@@ -15,8 +22,12 @@ export class UserAchievements {
     achievement: Achievements
 
     @Index()
-    @Column()
-    status: string
+    @Column({
+        type: "enum",
+        enum: AchievementStatus,
+        default: AchievementStatus.INPROGRESS,
+    })
+    status: AchievementStatus
 
     @Column("point", { array: true })
     placesVisited: string[]

@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Generated, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./Users";
 import {Places} from "./Places";
 import {Events} from "./Events";
@@ -6,9 +6,14 @@ import {Routes} from "./Routes";
 
 @Entity()
 export class Reviews {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn("increment", { type: "bigint"})
+    id: number
+
+    @Column()
+    @Generated("uuid")
     reviewId: string
 
+    @Index()
     @Column()
     title: string
 
@@ -18,6 +23,7 @@ export class Reviews {
     @Column()
     rating: number
 
+    @Index()
     @Column()
     reviewType: string
 

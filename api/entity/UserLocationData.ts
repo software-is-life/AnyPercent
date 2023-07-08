@@ -1,13 +1,13 @@
-import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {Geometry} from "geojson";
+import {Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import Users from "../routes/users";
 import {User} from "./Users";
 
 @Entity()
 export class UserLocationData {
-    @PrimaryGeneratedColumn("uuid")
-    userLocationDataId: string
+    @PrimaryGeneratedColumn("increment", { type: "bigint"})
+    id: number
 
+    @Index()
     @Column()
     timestamp: Date
 

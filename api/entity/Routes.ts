@@ -1,4 +1,4 @@
-import {Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Generated, Index, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Achievements} from "./Achievements";
 import {User} from "./Users";
 import {CityMap} from "./CityMap";
@@ -8,12 +8,18 @@ import {Reviews} from "./Reviews";
 
 @Entity()
 export class Routes {
-    @PrimaryGeneratedColumn("uuid")
+    @PrimaryGeneratedColumn("increment", { type: "bigint"})
+    id: number
+
+    @Column()
+    @Generated("uuid")
     routeId: string
 
+    @Index()
     @Column({type: 'bigint'})
     cityRegionId: string
 
+    @Index()
     @Column()
     name: string
 

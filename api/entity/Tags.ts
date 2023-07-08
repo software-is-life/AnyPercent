@@ -1,4 +1,4 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Generated, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Achievements} from "./Achievements";
 import {Events} from "./Events";
 import {Places} from "./Places";
@@ -10,11 +10,16 @@ export class Tags {
     @PrimaryGeneratedColumn("increment", { type: "bigint"})
     id: number
 
+    @Column()
+    @Generated("uuid")
+    tagId: string
+
+    @Index()
     @Column('character varying', {
         length: 25,
         unique: true
     })
-    public tag: string;
+    tag: string;
 
     @ManyToMany(() => Achievements, (achievements: Achievements) => achievements.tags)
     @JoinTable()

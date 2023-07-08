@@ -1,5 +1,5 @@
 import {Column, Entity, Index, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import Users from "../routes/users";
+import Users from "../routers/users";
 import {User} from "./Users";
 import {Achievements} from "./Achievements";
 

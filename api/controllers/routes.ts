@@ -7,10 +7,9 @@ import {
     retrieveRoutes,
     updateRoute
 } from '../services/routes';
-import router from "../routes/routes";
 
 // router.get("/get", getPaginatedLocalRoutesHandler);
-// router.get("/get/:routeId", getInvididualRouterHandler);
+// router.get("/get/:routeId", getInvidualRouterHandler);
 // router.post("/create", createRouteHandler);
 // router.put("/update/:routeId", updateRouteHandler);
 // router.delete("/delete/:routeId", deleteRouteHandler);
@@ -28,7 +27,7 @@ export const getPaginatedLocalRoutesHandler = async (
 
     try {
         const paginatedRoutes = await retrieveRoutes(currentS2LocationCellId, skip, limit);
-        res.status(201).json({
+        return res.status(201).json({
             data: {
                 paginatedRoutes
             },
@@ -38,7 +37,7 @@ export const getPaginatedLocalRoutesHandler = async (
     } catch (err: any) {
         console.log(err);
         return res.status(500).json({
-            status: 'fail',
+            status: 'Error Occurred',
             message: err.message,
         })
     }

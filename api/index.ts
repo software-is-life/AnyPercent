@@ -1,7 +1,6 @@
 import { AppDataSource } from "./data-source"
-import { NextFunction, Request, Response } from "express";
+// import { NextFunction, Request, Response } from "express";
 const express = require("express");
-import { User } from "./entity/Users";
 import * as morgan from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
@@ -11,10 +10,17 @@ import * as discordStrategy from "./authorization/passportStrategies/discordStra
 import * as githubStrategy from "./authorization/passportStrategies/githubStrategy";
 
 // Routers
-import authRouter from './routes/auth';
-import userRouter from './routes/users';
-import userAchievementsRouter from './routes/userAchievements';
-import routesRouter from './routes/routes';
+import authRouter from './routers/auth';
+import userRouter from './routers/users';
+import userAchievementsRouter from './routers/userAchievements';
+import routesRouter from './routers/routes';
+import placesRouter from './routers/places';
+import tagsRouter from './routers/tags';
+import userLocationDataRouter from './routers/userLocationData';
+import achievementsRouter from './routers/achievements';
+import eventsRouter from './routers/events';
+import reviewsRouter from './routers/reviews';
+import cityMapRouter from './routers/cityMap';
 
 
 
@@ -47,14 +53,22 @@ passport.use(facebookStrategy);
 passport.use(discordStrategy);
 passport.use(githubStrategy);
 app.use(passport.session());
+// TODO: include passkey authentication
 
-// ROUTES
+// ROUTES -- /api/v1.0
 app.use('/api/v1.0/auth', authRouter);
 app.use('/api/v1.0/users', userRouter);
+app.use('/api/v1.0/userLocationData', userLocationDataRouter);
 app.use('/api/v1.0/userAchievements', userAchievementsRouter);
-app.use('/api/v1.0/routes', routesRouter);
-// app.use('/api/photos', photosRouter);
+app.use('/api/v1.0/achievements', achievementsRouter);
+app.use('/api/v1.0/routers', routesRouter);
+app.use('/api/v1.0/places', placesRouter);
+app.use('/api/v1.0/events', eventsRouter);
+app.use('/api/v1.0/reviews', reviewsRouter);
+app.use('/api/v1.0/cityMap', cityMapRouter);
+app.use('/api/v1.0/tags', tagsRouter);
 
+// TODO: include more middleware, especially auth.
 // UNHANDLED ROUTE
 // app.all('*', (req: Request, res: Response, next: NextFunction) => {
 //     return (new Error("404 encountered"));

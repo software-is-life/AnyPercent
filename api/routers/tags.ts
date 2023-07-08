@@ -1,7 +1,7 @@
 import {
-    getTagRelatedItemsHandler,
     createTagHandler,
-    deleteTagHandler
+    deleteTagHandler,
+    getTagRelatedItemsHandler,
 } from '../controllers/tags';
 
 const router = require("express").Router();

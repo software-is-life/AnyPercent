@@ -1,9 +1,9 @@
+import { Tags } from '../entity/Tags';
+import { AppDataSource } from "../data-source";
+
 // getRelatedItemsWithTags,
 //     createTag,
 //     deleteTag
-
-import { Tags } from '../entity/Tags';
-import { AppDataSource } from "../data-source";
 
 const tagsRepository = AppDataSource.getRepository(Tags);
 export const  getRelatedItemsWithTags = async (data: any) => {

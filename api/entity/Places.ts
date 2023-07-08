@@ -33,6 +33,9 @@ export class Places {
     cityRegionId: string
 
     @Column()
+    description: string
+
+    @Column()
     address: string
 
     @Column()

@@ -2,13 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { generateS2BigIntIds } from '../utils/generateLocationDataMarkers';
 import {
     createRoute,
+    retrieveRoute,
+    updateRoute,
     deleteRoute,
-    retrieveIndividualRoute,
-    retrieveRoutes,
-    updateRoute
+    retrieveRoutes
 } from '../services/routes';
-
-// router.get("/get", getPaginatedLocalRoutesHandler);
 // router.get("/get/:routeId", getInvidualRouterHandler);
 // router.post("/create", createRouteHandler);
 // router.put("/update/:routeId", updateRouteHandler);

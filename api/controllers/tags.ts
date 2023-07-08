@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import {
-    getRelatedItemsWithTags,
     createTag,
-    deleteTag
+    deleteTag,
+    getRelatedItemsWithTags
 } from '../services/tags';
 import {Tags} from "../entity/Tags";
 import {RelatedItems} from "./controllers";

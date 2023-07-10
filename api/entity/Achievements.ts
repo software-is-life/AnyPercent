@@ -1,4 +1,14 @@
-import {Column, Entity, Generated, Index, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Generated,
+    Index,
+    JoinTable,
+    ManyToMany,
+    OneToMany,
+    PrimaryGeneratedColumn, UpdateDateColumn
+} from "typeorm";
 import {UserAchievements} from "./UserAchievements";
 import {Routes} from "./Routes";
 import {Tags} from "./Tags";
@@ -20,8 +30,14 @@ export class Achievements {
     description: string
 
     @Index()
-    @Column()
+    @Column({ nullable: true })
     author: string
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToMany(() => Tags, (tags) => tags.tag)
     @JoinTable()

@@ -1,4 +1,14 @@
-import {Column, Entity, Generated, Index, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Generated,
+    Index,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    PrimaryGeneratedColumn, UpdateDateColumn
+} from "typeorm";
 import {User} from "./Users";
 import {Places} from "./Places";
 import {Events} from "./Events";
@@ -27,6 +37,12 @@ export class Reviews {
     @Index()
     @Column()
     reviewType: string
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToOne(() => User, (user) => user.reviewsAuthored)
     author: User

@@ -14,8 +14,8 @@ export const getRoutesHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     let currentS2LocationCellId = generateS2BigIntIds(req);
-    let skip = req.query.skip;
-    let limit = req.query.limit;
+    let skip = Number(req.query.skip);
+    let limit = Number(req.query.limit);
 
     try {
         const paginatedRoutes = await retrieveRoutes(currentS2LocationCellId, skip, limit);
@@ -35,34 +35,34 @@ export const getRoutesHandler = async (
     }
 };
 
-export const getRouteHandler = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<Response> => {
-
-}
-
-export const createRouteHandler = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<Response> => {
-
-}
-
-export const updateRouteHandler = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<Response> => {
-
-}
-
-export const deleteRouteHandler = async (
-    req: Request,
-    res: Response,
-    next: NextFunction
-): Promise<Response> => {
-
-}
+// export const getRouteHandler = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ): Promise<Response> => {
+//
+// }
+//
+// export const createRouteHandler = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ): Promise<Response> => {
+//
+// }
+//
+// export const updateRouteHandler = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ): Promise<Response> => {
+//
+// }
+//
+// export const deleteRouteHandler = async (
+//     req: Request,
+//     res: Response,
+//     next: NextFunction
+// ): Promise<Response> => {
+//
+// }

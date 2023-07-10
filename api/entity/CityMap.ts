@@ -1,4 +1,12 @@
-import {Column, Entity, Generated, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Generated,
+    OneToMany,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import {Routes} from "./Routes";
 import {Places} from "./Places";
 import {Events} from "./Events";
@@ -15,11 +23,17 @@ export class CityMap {
     @Column()
     name: string
 
-    @Column()
+    @Column({ nullable: true })
     province: string
 
     @Column()
     country: string
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @Column({type: 'bigint'})
     regions: string[]
@@ -32,5 +46,4 @@ export class CityMap {
 
     @OneToMany(() => Places, (places) => places.city)
     places: Places[]
-
 }

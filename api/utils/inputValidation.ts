@@ -7,3 +7,11 @@ const EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[-!#$%&'*+/0-9=?A-Z^_`a-z{|}~]+(
 
 export const validateEmail = (potentialEmail: string): boolean => EMAIL_REGEXP.test(potentialEmail);
 export const validateURL = (potentialURL: string): boolean => URL_REGEXP.test(potentialURL);
+
+// TODO: integrate google address validation api: https://cloud.google.com/nodejs/docs/reference/addressvalidation/latest
+// TODO: might make more sense to do address validation on front-end side first
+export const validateAddress = () => {};
+
+export const validatePhoneNumber = () => {};
+
+export const validateRetrievingLocations = (data: any): boolean => !data.longitude && !data.latitude || !data.cityRegionId || !data.name;

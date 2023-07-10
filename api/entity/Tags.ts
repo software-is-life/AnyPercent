@@ -1,4 +1,13 @@
-import {Column, Entity, Generated, Index, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Generated,
+    Index,
+    JoinTable,
+    ManyToMany,
+    PrimaryGeneratedColumn, UpdateDateColumn
+} from "typeorm";
 import {Achievements} from "./Achievements";
 import {Events} from "./Events";
 import {Places} from "./Places";
@@ -20,6 +29,9 @@ export class Tags {
         unique: true
     })
     tag: string;
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
 
     @ManyToMany(() => Achievements, (achievements: Achievements) => achievements.tags)
     @JoinTable()

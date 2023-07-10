@@ -1,5 +1,5 @@
 import {
-    Column,
+    Column, CreateDateColumn,
     Entity,
     Generated,
     Index,
@@ -7,7 +7,7 @@ import {
     ManyToMany,
     ManyToOne,
     OneToMany,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
 import {Achievements} from "./Achievements";
 import {User} from "./Users";
@@ -34,7 +34,7 @@ export class Routes {
     @Column()
     name: string
 
-    @Column()
+    @Column({ nullable: true })
     description: string
 
     @ManyToOne(() => User, (user) => user.routesAuthored)
@@ -45,6 +45,12 @@ export class Routes {
 
     @ManyToOne(() => CityMap, (cityMap) => cityMap.regions)
     city: CityMap
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToMany(() => Achievements, (achievements) => achievements.routes)
     achievements: Achievements[]

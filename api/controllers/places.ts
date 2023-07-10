@@ -5,22 +5,41 @@ import {
     updatePlace,
     deletePlace,
     retrievePlaces
-} import from '../services/places';
+} from '../services/places';
 import {generateS2BigIntIds} from "../utils/generateLocationDataMarkers";
-
-;
-// getPaginatedPlacesHandler,
-//     getPlaceHandler,
-//     createPlaceHandler,
-//     updatePlaceHandler,
-//     deletePlaceHandler
-
+import {PlaceInput} from "./controllers";
+import {validateRetrievingLocations} from "../utils/inputValidation";
 export const getPlacesHandler = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-
+    // search query by name or cityRegionId or latitude / longitude pair
+    const data = req.query;
+    // TODO: determine more optional way to handle typing of req.query input
+    // Current method, is type casting
+    const name = String(data.name);
+    const skip = Number(data.skip);
+    const limit = Number(data.limit);
+    if (validateRetrievingLocations(data)) {
+        throw new Error("request query params must at least include one of the following: name, longitude & latitude pair, or cityId");
+    }
+    const cityRegionId = !data.cityRegionId && data.latitude && data.longitude ? generateS2BigIntIds(req) : undefined;
+    try {
+        const places = await retrievePlaces(cityRegionId, name, skip, limit);
+        return res.status(201).json({
+            data: {
+                places
+            },
+            skip,
+            limit,
+        });
+    } catch (err: any) {
+        return res.status(500).json({
+            status: 'Error Occurred',
+            message: err.message,
+        });
+    }
 }
 
 export const getPlaceHandler = async (
@@ -28,7 +47,20 @@ export const getPlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-
+    const placeId = req.params.placeId;
+    try {
+        const place = await retrievePlace(placeId);
+        return res.status(201).json({
+            data: {
+                place
+            }
+        });
+    } catch (err: any) {
+        return res.status(500).json({
+            status: 'Error Occurred',
+            message: err.message,
+        });
+    }
 }
 
 export const createPlaceHandler = async (
@@ -36,7 +68,7 @@ export const createPlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const data = req.body;
+    const data: PlaceInput = req.body;
     if (!data.latitude || !data.longitude || !data.name || !data.description) {
         throw new Error("request body must at least include name, longitude, latitude, and description");
     }
@@ -61,6 +93,22 @@ export const updatePlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
+    // TODO: validate req.body update. Potentially, use express-validator
+    const placeId = req.params.placeId;
+    const data: PlaceInput = req.body;
+    try {
+        const updatedPlace = await updatePlace(placeId, data);
+        return res.status(201).json({
+            data: {
+                updatedPlace
+            }
+        });
+    } catch (err: any) {
+        return res.status(500).json({
+            status: 'Error Occurred',
+            message: err.message,
+        });
+    }
 
 }
 
@@ -69,5 +117,18 @@ export const deletePlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-
+    const placeId = req.params.placeId;
+    try {
+        const deletedPlace = await deletePlace(placeId);
+        return res.status(201).json({
+            data: {
+                deletedPlace
+            }
+        });
+    } catch (err: any) {
+        return res.status(500).json({
+            status: 'Error Occurred',
+            message: err.message,
+        });
+    }
 }

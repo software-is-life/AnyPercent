@@ -1,14 +1,14 @@
 import {
-    getPaginatedPlacesHandler,
+    getPlacesHandler,
     getPlaceHandler,
     createPlaceHandler,
     updatePlaceHandler,
     deletePlaceHandler
-} from "../controllers/routes";
+} from "../controllers/places";
 
 const router = require("express").Router();
 // CRUD plus get paginated by user or tag
-router.get("/get", getPaginatedPlacesHandler);
+router.get("/get", getPlacesHandler);
 router.get("/get/:placeId", getPlaceHandler);
 router.post("/create", createPlaceHandler);
 router.put("/update/:placeId", updatePlaceHandler);

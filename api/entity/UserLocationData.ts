@@ -1,4 +1,4 @@
-import {Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import Users from "../routers/users";
 import {User} from "./Users";
 
@@ -8,8 +8,8 @@ export class UserLocationData {
     id: number
 
     @Index()
-    @Column()
-    timestamp: Date
+    @CreateDateColumn({ name: 'created_at'})
+    createdAt: Date
 
     @Column("point")
     location: string

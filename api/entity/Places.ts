@@ -1,5 +1,5 @@
 import {
-    Column,
+    Column, CreateDateColumn,
     Entity,
     Generated,
     Index,
@@ -7,7 +7,7 @@ import {
     ManyToMany,
     ManyToOne,
     OneToMany,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
 import {Routes} from "./Routes";
 import {CityMap} from "./CityMap";
@@ -28,27 +28,33 @@ export class Places {
     @Column()
     name: string
 
+    @Column()
+    description: string
+
     @Index()
     @Column({type: 'bigint'})
     cityRegionId: string
 
     @Column()
-    description: string
-
-    @Column()
     address: string
 
-    @Column()
+    @Column({ nullable: true })
     phone: string
 
-    @Column()
+    @Column({ nullable: true })
     hoursOfOperation: string[]
 
-    @Column()
+    @Column({ nullable: true })
     website: string
 
-    @Column()
+    @Column({ nullable: true })
     rating: number
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToOne(() => CityMap, (cityMap) => cityMap.places)
     city: CityMap

@@ -1,4 +1,12 @@
-import {Column, Entity, Index, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    Index,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import Users from "../routers/users";
 import {User} from "./Users";
 import {Achievements} from "./Achievements";
@@ -31,4 +39,10 @@ export class UserAchievements {
 
     @Column("point", { array: true })
     placesVisited: string[]
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 }

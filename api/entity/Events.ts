@@ -1,5 +1,5 @@
 import {
-    Column,
+    Column, CreateDateColumn,
     Entity,
     Generated,
     Index,
@@ -7,7 +7,7 @@ import {
     ManyToMany,
     ManyToOne,
     OneToMany,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn, UpdateDateColumn
 } from "typeorm";
 import {CityMap} from "./CityMap";
 import {Routes} from "./Routes";
@@ -34,6 +34,12 @@ export class Events {
     @Index()
     @Column({type: 'bigint'})
     cityRegionId: string
+
+    @CreateDateColumn({ name: 'created_at' })
+    createdAt: Date;
+
+    @UpdateDateColumn({ name: 'updated_at' })
+    updatedAt: Date;
 
     @ManyToOne(() => User, (user) => user.eventsAuthored)
     author: User

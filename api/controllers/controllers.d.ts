@@ -4,6 +4,7 @@ import {Achievements} from "../entity/Achievements";
 import {Events} from "../entity/Events";
 import {Places} from "../entity/Places";
 import {Tags} from "../entity/Tags";
+import {AchievementStatus} from "../entity/UserAchievements";
 
 export type RelatedItems = Routes | Reviews | Achievements;
 export type RatingNumbers = 1 | 2 | 3 | 4 | 5;
@@ -58,12 +59,17 @@ export interface CityMapInput {
     province?: string;
     regionsId?: string;
 }
-//
-// export interface UserAchievementsInput {
-//
-// };
+
+export interface UserAchievementsInput {
+    latitude: string;
+    longitude: string;
+    userId: string;
+    status?: AchievementStatus;
+}
 //
 // export interface AchievementsInput {
 //
 // }
 //
+export class UserAchievementInput {
+}

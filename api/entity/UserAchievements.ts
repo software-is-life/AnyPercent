@@ -1,7 +1,7 @@
 import {
     Column,
     CreateDateColumn,
-    Entity,
+    Entity, Generated,
     Index,
     ManyToOne,
     PrimaryGeneratedColumn,
@@ -22,6 +22,13 @@ export enum AchievementStatus {
 export class UserAchievements {
     @PrimaryGeneratedColumn("increment", { type: "bigint"})
     id: number
+
+    @Column()
+    @Generated("uuid")
+    userAchievementId: string
+
+    @Column()
+    userId: string
 
     @ManyToOne(() => Users, (users) => users.userAchievements)
     user: User

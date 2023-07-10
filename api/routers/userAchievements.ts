@@ -1,8 +1,16 @@
-import {retrieveUserAchievementsHandler} from "../controllers/userAchievements";
+import {
+    createUserAchievementHandler,
+    deleteUserAchievementHandler,
+    getUserAchievementHandler,
+    getUserAchievementsHandler,
+    updateUserAchievementHandler
+} from "../controllers/userAchievements";
 
-const router = require("express").Router();
+const router = require("express").UserAchievementr();
 
-router.get('/achievements/user/:id', retrieveUserAchievementsHandler);
-// TODO: fill out achievements rest of routers
-
+router.get("/get/user/:userId", getUserAchievementsHandler);
+router.get("/get/:userAchievementId", getUserAchievementHandler);
+router.post("/create", createUserAchievementHandler);
+router.put("/update/:userAchievementId", updateUserAchievementHandler);
+router.delete("/delete/:userAchievementId", deleteUserAchievementHandler);
 export default router;

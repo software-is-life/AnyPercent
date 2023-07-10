@@ -8,8 +8,10 @@ import {
 } from '../services/events';
 
 import {EventInput} from "./controllers";
-import {generateS2BigIntIds} from "../utils/generateLocationDataMarkers";
+import {generateS2BigIntIds} from "../utils/locationUtils";
 import {validateRetrievingLocations} from "../utils/inputValidation";
+import {Events} from "../entity/Events";
+import {DeleteResult} from "typeorm";
 
 // TODO: add a data type for Event input, add it .d.ts file
 export const getEventsHandler = async (
@@ -27,7 +29,7 @@ export const getEventsHandler = async (
     }
     const cityRegionId = !data.cityRegionId && data.latitude && data.longitude ? generateS2BigIntIds(req) : undefined;
     try {
-        const events = await retrieveEvents(cityRegionId, name, skip, limit);
+        const events: Events[] = await retrieveEvents(cityRegionId, name, skip, limit);
         return res.status(201).json({
             data: {
                 events
@@ -48,9 +50,9 @@ export const getEventHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const eventId = req.params.eventId;
+    const eventId: string = req.params.eventId;
     try {
-        const event = await retrieveEvent(eventId);
+        const event: Events = await retrieveEvent(eventId);
         return res.status(201).json({
             data: {
                 event
@@ -75,10 +77,10 @@ export const createEventHandler = async (
     }
     const cityRegionId = generateS2BigIntIds(req);
     try {
-        const createdevent = await createEvent(data, cityRegionId);
+        const createdEvent: Events = await createEvent(data, cityRegionId);
         return res.status(201).json({
             data: {
-                createdevent
+                createdEvent
             }
         });
     } catch (err: any) {
@@ -95,10 +97,10 @@ export const updateEventHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     // TODO: validate req.body update. Potentially, use express-validator
-    const eventId = req.params.eventId;
+    const eventId: string = req.params.eventId;
     const data: EventInput = req.body;
     try {
-        const updatedEvent = await updateEvent(eventId, data);
+        const updatedEvent: Events = await updateEvent(eventId, data);
         return res.status(201).json({
             data: {
                 updatedEvent
@@ -118,9 +120,9 @@ export const deleteEventHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const eventId = req.params.eventId;
+    const eventId: string = req.params.eventId;
     try {
-        const deletedEvent = await deleteEvent(eventId);
+        const deletedEvent: DeleteResult = await deleteEvent(eventId);
         return res.status(201).json({
             data: {
                 deletedEvent

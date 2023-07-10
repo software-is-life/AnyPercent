@@ -6,9 +6,11 @@ import {
     deletePlace,
     retrievePlaces
 } from '../services/places';
-import {generateS2BigIntIds} from "../utils/generateLocationDataMarkers";
+import {generateS2BigIntIds} from "../utils/locationUtils";
 import {PlaceInput} from "./controllers";
 import {validateRetrievingLocations} from "../utils/inputValidation";
+import {DeleteResult} from "typeorm";
+import {Places} from "../entity/Places";
 export const getPlacesHandler = async (
     req: Request,
     res: Response,
@@ -26,7 +28,7 @@ export const getPlacesHandler = async (
     }
     const cityRegionId = !data.cityRegionId && data.latitude && data.longitude ? generateS2BigIntIds(req) : undefined;
     try {
-        const places = await retrievePlaces(cityRegionId, name, skip, limit);
+        const places: Places[] = await retrievePlaces(cityRegionId, name, skip, limit);
         return res.status(201).json({
             data: {
                 places
@@ -47,9 +49,9 @@ export const getPlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const placeId = req.params.placeId;
+    const placeId: string = req.params.placeId;
     try {
-        const place = await retrievePlace(placeId);
+        const place: Places = await retrievePlace(placeId);
         return res.status(201).json({
             data: {
                 place
@@ -74,7 +76,7 @@ export const createPlaceHandler = async (
     }
     const cityRegionId = generateS2BigIntIds(req);
     try {
-        const createdPlace = await createPlace(data, cityRegionId);
+        const createdPlace: Places = await createPlace(data, cityRegionId);
         return res.status(201).json({
             data: {
                 createdPlace
@@ -94,10 +96,10 @@ export const updatePlaceHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     // TODO: validate req.body update. Potentially, use express-validator
-    const placeId = req.params.placeId;
+    const placeId: string = req.params.placeId;
     const data: PlaceInput = req.body;
     try {
-        const updatedPlace = await updatePlace(placeId, data);
+        const updatedPlace: Places = await updatePlace(placeId, data);
         return res.status(201).json({
             data: {
                 updatedPlace
@@ -117,9 +119,9 @@ export const deletePlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const placeId = req.params.placeId;
+    const placeId: string = req.params.placeId;
     try {
-        const deletedPlace = await deletePlace(placeId);
+        const deletedPlace: DeleteResult = await deletePlace(placeId);
         return res.status(201).json({
             data: {
                 deletedPlace

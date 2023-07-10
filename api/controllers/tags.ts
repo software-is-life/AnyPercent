@@ -64,7 +64,7 @@ export const deleteTagHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    let tagId = req.params.tagId;
+    let tagId: string = req.params.tagId;
     try {
         const deletedTag: Tags = await deleteTag(tagId);
         return res.status(201).json({

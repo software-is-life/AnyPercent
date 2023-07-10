@@ -8,6 +8,8 @@ export const generateS2BigIntIds = (req: Request) => {
     return new s2.CellId(new s2.LatLng(latitude, longitude));
 };
 
+const createPointString = (latitude: string, longitude: string): string => `POINT(${latitude} ${longitude}`;
+
 const findCurrentLatitudeandLongitude = () => {
     console.log("call if used");
 };

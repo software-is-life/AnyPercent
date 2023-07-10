@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { generateS2BigIntIds } from '../utils/generateLocationDataMarkers';
+import { generateS2BigIntIds } from '../utils/locationUtils';
 import {
     createRoute,
     retrieveRoute,

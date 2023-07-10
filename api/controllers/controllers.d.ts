@@ -3,6 +3,7 @@ import {Reviews} from "../entity/Reviews";
 import {Achievements} from "../entity/Achievements";
 
 export type RelatedItems = Routes | Reviews | Achievements;
+export type RatingNumbers = 1 | 2 | 3 | 4 | 5;
 
 // export interface UserInput {
 //
@@ -33,9 +34,12 @@ export interface EventInput extends LocationDetailsBase {}
 //
 // };
 //
-// export interface ReviewInput {
-//
-// };
+
+export interface ReviewInput {
+    title: string;
+    description: string;
+    rating: RatingNumbers;
+}
 //
 // export interface UserLocationDataInput {
 //

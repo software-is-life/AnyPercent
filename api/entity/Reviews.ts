@@ -34,10 +34,6 @@ export class Reviews {
     @Column()
     rating: number
 
-    @Index()
-    @Column()
-    reviewType: string
-
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 

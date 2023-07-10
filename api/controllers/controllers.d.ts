@@ -46,10 +46,11 @@ export interface ReviewInput {
     description: string;
     rating: RatingNumbers;
 }
-//
-// export interface UserLocationDataInput {
-//
-// };
+
+export interface UserLocationDataInput {
+    latitude: string;
+    longitude: string;
+}
 //
 // export interface CityMapInput {
 //

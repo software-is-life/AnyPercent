@@ -66,10 +66,8 @@ export interface UserAchievementsInput {
     userId: string;
     status?: AchievementStatus;
 }
-//
-// export interface AchievementsInput {
-//
-// }
-//
-export class UserAchievementInput {
+
+export interface AchievementsInput {
+    name: string;
+    description: string;
 }

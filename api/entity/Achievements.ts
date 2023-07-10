@@ -20,7 +20,7 @@ export class Achievements {
 
     @Column()
     @Generated("uuid")
-    routeId: string
+    achievementId: string
 
     @Index()
     @Column()

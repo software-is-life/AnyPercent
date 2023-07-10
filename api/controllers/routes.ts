@@ -7,14 +7,8 @@ import {
     deleteRoute,
     retrieveRoutes
 } from '../services/routes';
-// router.get("/get/:routeId", getInvidualRouterHandler);
-// router.post("/create", createRouteHandler);
-// router.put("/update/:routeId", updateRouteHandler);
-// router.delete("/delete/:routeId", deleteRouteHandler);
 
-
-
-export const getPaginatedLocalRoutesHandler = async (
+export const getRoutesHandler = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -40,3 +34,35 @@ export const getPaginatedLocalRoutesHandler = async (
         })
     }
 };
+
+export const getRouteHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
+export const createRouteHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
+export const updateRouteHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
+export const deleteRouteHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}

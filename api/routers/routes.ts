@@ -1,12 +1,15 @@
 import {
-    getPaginatedLocalRoutesHandler
+    getRoutesHandler,
+    getRouteHandler,
+    createRouteHandler,
+    updateRouteHandler,
+    deleteRouteHandler
 } from '../controllers/routes';
 
 const router = require("express").Router();
 
-router.get("/get", getPaginatedLocalRoutesHandler);
-// TODO: fill out the rest of the routers below in controllers & services.
-router.get("/get/:routeId", getInvididualRouterHandler);
+router.get("/get", getRoutesHandler);
+router.get("/get/:routeId", getRouteHandler);
 router.post("/create", createRouteHandler);
 router.put("/update/:routeId", updateRouteHandler);
 router.delete("/delete/:routeId", deleteRouteHandler);

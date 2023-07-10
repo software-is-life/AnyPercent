@@ -58,14 +58,14 @@ app.use(passport.session());
 // ROUTES -- /api/v1.0
 app.use('/api/v1.0/auth', authRouter);
 app.use('/api/v1.0/users', userRouter);
-app.use('/api/v1.0/userLocationData', userLocationDataRouter);
-app.use('/api/v1.0/userAchievements', userAchievementsRouter);
+app.use('/api/v1.0/user-location-data', userLocationDataRouter);
+app.use('/api/v1.0/user-achievements', userAchievementsRouter);
 app.use('/api/v1.0/achievements', achievementsRouter);
 app.use('/api/v1.0/routers', routesRouter);
 app.use('/api/v1.0/places', placesRouter);
 app.use('/api/v1.0/events', eventsRouter);
 app.use('/api/v1.0/reviews', reviewsRouter);
-app.use('/api/v1.0/cityMap', cityMapRouter);
+app.use('/api/v1.0/city-map', cityMapRouter);
 app.use('/api/v1.0/tags', tagsRouter);
 
 // TODO: include more middleware, especially auth.

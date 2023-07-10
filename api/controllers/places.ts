@@ -15,6 +15,22 @@ import {generateS2BigIntIds} from "../utils/generateLocationDataMarkers";
 //     updatePlaceHandler,
 //     deletePlaceHandler
 
+export const getPlacesHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
+export const getPlaceHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
 export const createPlaceHandler = async (
     req: Request,
     res: Response,
@@ -39,3 +55,19 @@ export const createPlaceHandler = async (
         });
     }
 };
+
+export const updatePlaceHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}
+
+export const deletePlaceHandler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<Response> => {
+
+}

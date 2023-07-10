@@ -98,7 +98,7 @@ export const updateEventHandler = async (
 ): Promise<Response> => {
     // TODO: validate req.body update. Potentially, use express-validator
     const eventId: string = req.params.eventId;
-    const data: EventInput = req.body;
+    const data: Partial<EventInput> = req.body;
     try {
         const updatedEvent: Events = await updateEvent(eventId, data);
         return res.status(201).json({
@@ -112,8 +112,7 @@ export const updateEventHandler = async (
             message: err.message,
         });
     }
-
-}
+};
 
 export const deleteEventHandler = async (
     req: Request,

@@ -42,7 +42,7 @@ export const createPlace = async (data: PlaceInput, cityRegionId: string): Promi
     }));
 };
 
-export const updatePlace = async (placeId: string, data: PlaceInput): Promise<Places> => {
+export const updatePlace = async (placeId: string, data: Partial<PlaceInput>): Promise<Places> => {
     const place = await placesRepository.findOneBy({
         placeId
     });

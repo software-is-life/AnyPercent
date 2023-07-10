@@ -1,9 +1,6 @@
 import { Tags } from '../entity/Tags';
 import { AppDataSource } from "../data-source";
-
-// getRelatedItemsWithTags,
-//     createTag,
-//     deleteTag
+import {Events} from "../entity/Events";
 
 const tagsRepository = AppDataSource.getRepository(Tags);
 export const  getRelatedItemsWithTags = async (data: any) => {
@@ -28,6 +25,12 @@ export const  createTag = async (tagName: string) => {
     return tagsRepository.save(tagsRepository.create({
         tag: tagName
     }));
+};
+
+export const retrieveTag = async (tagId: string): Promise<Tags> => {
+    return await tagsRepository.findOneBy({
+        tagId
+    });
 };
 
 export const  deleteTag = async (tagId: string) => {

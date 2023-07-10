@@ -30,7 +30,7 @@ export const retrieveEvent = async (eventId: string): Promise<Events> => {
     return await eventsRepository.findOneBy({
         eventId
     });
-}
+};
 
 export const createEvent = async (data: EventInput, cityRegionId: string): Promise<Events> => {
     // TODO: can destructuring make this easier to read?
@@ -42,16 +42,16 @@ export const createEvent = async (data: EventInput, cityRegionId: string): Promi
     }));
 };
 
-export const updateEvent = async (eventId: string, data: EventInput): Promise<Events> => {
+export const updateEvent = async (eventId: string, data: Partial<EventInput>): Promise<Events> => {
     const event = await eventsRepository.findOneBy({
         eventId
     });
     eventsRepository.merge(event, data);
     return await eventsRepository.save(event);
-}
+};
 
 export const deleteEvent = async (eventId: string): Promise<DeleteResult> => {
     return await eventsRepository.delete({
         eventId
     });
-}
+};

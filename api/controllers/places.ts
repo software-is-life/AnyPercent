@@ -43,7 +43,6 @@ export const getPlacesHandler = async (
         });
     }
 }
-
 export const getPlaceHandler = async (
     req: Request,
     res: Response,
@@ -95,9 +94,8 @@ export const updatePlaceHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    // TODO: validate req.body update. Potentially, use express-validator
     const placeId: string = req.params.placeId;
-    const data: PlaceInput = req.body;
+    const data: Partial<PlaceInput> = req.body;
     try {
         const updatedPlace: Places = await updatePlace(placeId, data);
         return res.status(201).json({

@@ -27,14 +27,17 @@ export class Routes {
     routeId: string
 
     @Index()
-    @Column({type: 'bigint'})
-    cityRegionId: string
+    @Column({
+        type: 'bigint',
+        array: true
+    })
+    cityRegionId: string[]
 
     @Index()
     @Column()
     name: string
 
-    @Column({ nullable: true })
+    @Column()
     description: string
 
     @ManyToOne(() => User, (user) => user.routesAuthored)

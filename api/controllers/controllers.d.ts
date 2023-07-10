@@ -1,9 +1,13 @@
 import {Routes} from "../entity/Routes";
 import {Reviews} from "../entity/Reviews";
 import {Achievements} from "../entity/Achievements";
+import {Events} from "../entity/Events";
+import {Places} from "../entity/Places";
+import {Tags} from "../entity/Tags";
 
 export type RelatedItems = Routes | Reviews | Achievements;
 export type RatingNumbers = 1 | 2 | 3 | 4 | 5;
+export type ValidRoutesEntity =  Events | Places | Achievements | Tags;
 
 // export interface UserInput {
 //
@@ -30,10 +34,12 @@ export interface PlaceInput extends LocationDetailsBase{
 
 export interface EventInput extends LocationDetailsBase {}
 
-// export interface RouteInput {
-//
-// };
-//
+export interface RouteInput extends LocationDetailsBase {
+    achievementIds?: string[];
+    eventIds?: string[];
+    placeIds?: string[];
+    tagIds?: string[];
+}
 
 export interface ReviewInput {
     title: string;

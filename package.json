@@ -29,6 +29,7 @@
   "dependencies": {
     "@radarlabs/s2": "^0.0.5",
     "body-parser": "^1.20.2",
+    "connect-redis": "^7.1.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
@@ -42,6 +43,7 @@
     "passport-github2": "^0.1.12",
     "passport-google-oidc": "^0.1.0",
     "passport-http-bearer": "^1.0.1",
+    "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.17"
   },

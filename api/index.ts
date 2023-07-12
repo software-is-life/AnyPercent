@@ -1,14 +1,22 @@
 import { AppDataSource } from "./data-source"
 // import { NextFunction, Request, Response } from "express";
 const express = require("express");
-const session = require("express-session");
+
+// Middleware
 import * as morgan from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
+
+// OAUTH2 Strategies
 import * as googleStrategy from "./authorization/passportStrategies/googleStrategy";
 import * as facebookStrategy from "./authorization/passportStrategies/facebookStrategy";
 import * as discordStrategy from "./authorization/passportStrategies/discordStrategy";
 import * as githubStrategy from "./authorization/passportStrategies/githubStrategy";
+
+// REDIS session store
+import RedisStore from "connect-redis";
+const session = require("express-session");
+import {createClient} from 'redis';
 
 // Routers
 import authRouter from './routers/auth';
@@ -36,18 +44,29 @@ AppDataSource
     .catch(error => console.log(error));
 
 const app = express();
-
-// MIDDLEWARE
 app.use(express.json());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 app.use(cookieParser());
 app.use(cors());
 
+// REDIS setup
+let redisClient = createClient({
+    // @ts-ignore
+    host: 'localhost',
+    port: 6379
+});
+redisClient.connect().catch(console.error);
+
+let redisStore = new RedisStore({
+    client: redisClient,
+    prefix: process.env.REDIS_SESSION_KEY_PREFIX
+})
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    // store: sessionStore,
+    store: redisStore,
     cookie: {
         maxAge: ONE_DAY,
         secure: true, // only set cookies over https

@@ -9,9 +9,15 @@ import {
     Index
 } from "typeorm";
 import {UserLocationData} from "./UserLocationData";
-import {UserAchievements} from "./UserAchievements";
+import {AchievementStatus, UserAchievements} from "./UserAchievements";
 import {Routes} from "./Routes";
 import {Reviews} from "./Reviews";
+
+export enum Role {
+    ADMIN = "admin",
+    OWNER = "owner",
+    USER = "user"
+}
 
 @Entity()
 export class User {
@@ -45,6 +51,14 @@ export class User {
     // research: https://www.waze.com//wiki/Canada/Your_Rank_and_Points
     @Column()
     points: number
+
+    @Index()
+    @Column({
+        type: "enum",
+        enum: Role,
+        default: Role.USER,
+    })
+    userRole: Role
 
     @CreateDateColumn({ name: 'created_at'})
     createdAt: Date

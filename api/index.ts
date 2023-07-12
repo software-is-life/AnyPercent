@@ -1,6 +1,7 @@
 import { AppDataSource } from "./data-source"
 // import { NextFunction, Request, Response } from "express";
 const express = require("express");
+const session = require("express-session");
 import * as morgan from "morgan";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
@@ -22,6 +23,9 @@ import eventsRouter from './routers/events';
 import reviewsRouter from './routers/reviews';
 import cityMapRouter from './routers/cityMap';
 
+// CONSTANTS
+const ONE_DAY = 1000 * 60 * 60 * 24;
+const ONE_WEEK = ONE_DAY * 7;
 
 
 AppDataSource
@@ -39,12 +43,16 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 app.use(cookieParser());
 app.use(cors());
 
-const session = require('express-session');
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: true }
+    // store: sessionStore,
+    cookie: {
+        maxAge: ONE_DAY,
+        secure: true, // only set cookies over https
+        httpOnly: true, // don't allow JS code to access cookies
+    }
 }));
 
 const passport = require('passport');

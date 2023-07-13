@@ -7,6 +7,7 @@ import {
 } from "../controllers/events";
 
 const router = require("express").Router();
+
 // CRUD plus get paginated by user or tag
 router.get("/get", getEventsHandler);
 router.get("/get/:eventId", getEventHandler);

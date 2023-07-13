@@ -1,6 +1,7 @@
 import { AppDataSource } from "./data-source"
 // import { NextFunction, Request, Response } from "express";
 const express = require("express");
+require("dotenv").config();
 
 // Middleware
 import * as morgan from "morgan";
@@ -8,10 +9,10 @@ import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
 
 // OAUTH2 Strategies
-import * as googleStrategy from "./authorization/passportStrategies/googleStrategy";
-import * as facebookStrategy from "./authorization/passportStrategies/facebookStrategy";
-import * as discordStrategy from "./authorization/passportStrategies/discordStrategy";
-import * as githubStrategy from "./authorization/passportStrategies/githubStrategy";
+// import * as googleStrategy from "./authorization/passportStrategies/googleStrategy";
+// import * as facebookStrategy from "./authorization/passportStrategies/facebookStrategy";
+// import * as discordStrategy from "./authorization/passportStrategies/discordStrategy";
+// import * as githubStrategy from "./authorization/passportStrategies/githubStrategy";
 
 // REDIS session store
 import RedisStore from "connect-redis";
@@ -30,10 +31,12 @@ import achievementsRouter from './routers/achievements';
 import eventsRouter from './routers/events';
 import reviewsRouter from './routers/reviews';
 import cityMapRouter from './routers/cityMap';
+import * as process from "process";
 
 // CONSTANTS
 const ONE_DAY = 1000 * 60 * 60 * 24;
 const ONE_WEEK = ONE_DAY * 7;
+const SESSION_SECRET = process.env.SESSION_SECRET;
 
 
 AppDataSource
@@ -50,7 +53,7 @@ app.use(cookieParser());
 app.use(cors());
 
 // REDIS setup
-let redisClient = createClient({
+export let redisClient = createClient({
     // @ts-ignore
     host: 'localhost',
     port: 6379
@@ -63,27 +66,27 @@ let redisStore = new RedisStore({
 })
 
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: redisStore,
     cookie: {
         maxAge: ONE_DAY,
-        secure: true, // only set cookies over https
+        secure: false, // only set cookies over https
         httpOnly: true, // don't allow JS code to access cookies
     }
 }));
 
 const passport = require('passport');
-passport.use(googleStrategy);
-passport.use(facebookStrategy);
-passport.use(discordStrategy);
-passport.use(githubStrategy);
+// passport.use(googleStrategy);
+// passport.use(facebookStrategy);
+// passport.use(discordStrategy);
+// passport.use(githubStrategy);
 app.use(passport.session());
 // TODO: include passkey authentication
 
 // ROUTES -- /api/v1.0
-app.use('/api/v1.0/auth', authRouter);
+app.use('/api/v1.0/authentication', authRouter);
 app.use('/api/v1.0/users', userRouter);
 app.use('/api/v1.0/user-location-data', userLocationDataRouter);
 app.use('/api/v1.0/user-achievements', userAchievementsRouter);

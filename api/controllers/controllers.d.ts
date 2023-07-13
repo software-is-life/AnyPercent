@@ -5,6 +5,7 @@ import {Events} from "../entity/Events";
 import {Places} from "../entity/Places";
 import {Tags} from "../entity/Tags";
 import {AchievementStatus} from "../entity/UserAchievements";
+import { Session } from 'express-session';
 
 export type RelatedItems = Routes | Reviews | Achievements;
 export type RatingNumbers = 1 | 2 | 3 | 4 | 5;

@@ -5,7 +5,7 @@ import {
     deleteUserLocationDataHandler
 } from '../controllers/UserLocationData';
 
-const router = require("express").UserLocationDatar();
+const router = require("express").Router();
 
 router.get("/get", getUsersLocationDataHandler);
 router.get("/get/:userLocationDataId", getUserLocationDataHandler);

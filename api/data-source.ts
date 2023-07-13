@@ -1,22 +1,14 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import { User } from "./entity/Users";
-import {UserLocationData} from "./entity/UserLocationData";
-import {UserAchievements} from "./entity/UserAchievements";
-import {Achievements} from "./entity/Achievements";
-import {Routes} from "./entity/Routes";
-import {Reviews} from "./entity/Reviews";
-import {Places} from "./entity/Places";
-import {CityMap} from "./entity/CityMap";
-import {Events} from "./entity/Events";
+import * as process from "process";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: "localhost",
+    host: process.env.PLANET_SCALE_HOST,
     port: 3306,
-    username: "test",
-    password: "test",
-    database: "test",
+    username: process.env.PLANET_SCALE_USERNAME,
+    password: process.env.PLANET_SCALE_PASSWORD,
+    database: process.env.PLANET_SCALE_DATABASE,
     synchronize: true,
     logging: true,
     entities: ["entity/*.ts"],

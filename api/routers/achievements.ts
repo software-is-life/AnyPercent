@@ -6,7 +6,7 @@ import {
     updateAchievementHandler
 } from "../controllers/Achievements";
 
-const router = require("express").Achievementr();
+const router = require("express").Router();
 
 router.get("/get/user/:userId", getAchievementsHandler);
 router.get("/get/:userAchievementId", getAchievementHandler);

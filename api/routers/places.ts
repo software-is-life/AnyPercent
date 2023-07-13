@@ -7,6 +7,7 @@ import {
 } from "../controllers/places";
 
 const router = require("express").Router();
+
 // CRUD plus get paginated by user or tag
 router.get("/get", getPlacesHandler);
 router.get("/get/:placeId", getPlaceHandler);

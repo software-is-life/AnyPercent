@@ -8,9 +8,9 @@ import {
 
 const router = require("express").Router();
 
-router.get("/get/user/:userId", getAchievementsHandler);
-router.get("/get/:userAchievementId", getAchievementHandler);
+router.get("/get", getAchievementsHandler);
+router.get("/get/:achievementId", getAchievementHandler);
 router.post("/create", createAchievementHandler);
-router.put("/update/:userAchievementId", updateAchievementHandler);
-router.delete("/delete/:userAchievementId", deleteAchievementHandler);
+router.put("/update/:achievementId", updateAchievementHandler);
+router.delete("/delete/::achievementId", deleteAchievementHandler);
 export default router;

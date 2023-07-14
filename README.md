@@ -45,4 +45,9 @@ curl -X DELETE localhost:8080/api/v1/users/delete/2
 ```
 
 #TODO
-- Write batch processing logic for clearing up null rows from tables due to no foreign key constraints.
+- [ ] Write batch processing logic for clearing up null rows from tables due to no foreign key constraints.
+- [ ] Double check API local routes and see if there are any issues with api implementation.
+- [ ] Fill out redis auth flow
+- [ ] Fill out readme documentation for local running with redis and planet scale
+- [ ] create prod infra resources for backend api, elasticache redis, api gateway, loadbalancer, etc.
+- 

@@ -37,7 +37,7 @@ export class UserAchievements {
     })
     status: AchievementStatus
 
-    @Column("multipoint")
+    @Column()
     placesVisited: string
 
     @CreateDateColumn({ name: 'created_at' })

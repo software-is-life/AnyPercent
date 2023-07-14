@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import {createPointString, generateS2BigIntIds} from '../utils/locationUtils';
+import {createWKTPointString} from '../utils/locationUtils';
 import {
     createUserAchievement,
     retrieveUserAchievement,
@@ -68,7 +68,7 @@ export const createUserAchievementHandler = async (
     if (!data.userId || !data.latitude || !data.longitude) {
         throw new Error("In order to create a UserAchievement you must include a latitude, longitude, and a userId");
     }
-    const placeVisitedPoint = createPointString(data.latitude, data.longitude);
+    const placeVisitedPoint = createWKTPointString(data.latitude, data.longitude);
     try {
         const createdUserAchievement: UserAchievements = await createUserAchievement(data, placeVisitedPoint);
         return res.status(201).json({
@@ -91,7 +91,7 @@ export const updateUserAchievementHandler = async (
 ): Promise<Response> => {
     const userAchievementId: string = req.params.userAchievementId;
     const data: Partial<UserAchievementsInput> = req.body;
-    const placeVisitedPoint = data.latitude && data.longitude ? createPointString(data.latitude, data.longitude): undefined;
+    const placeVisitedPoint = data.latitude && data.longitude ? createWKTPointString(data.latitude, data.longitude): undefined;
     try {
         const updatedUserAchievement: UserAchievements = await updateUserAchievement(userAchievementId, data, placeVisitedPoint);
         return res.status(201).json({

@@ -39,9 +39,9 @@ export const retrieveUserLocationDataPoint = async (userId: string,
     });
 }
 
-export const createUserLocationDataPoint = async (location: string, cityRegionId: string): Promise<UserLocationData> => {
+export const createUserLocationDataPoint = async (locationGeometry: string, cityRegionId: string): Promise<UserLocationData> => {
     return await userLocationDataRepository.save(userLocationDataRepository.create({
-        location,
+        location: locationGeometry,
         cityRegionId
     }));
 };

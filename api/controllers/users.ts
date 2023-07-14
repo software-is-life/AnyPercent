@@ -1,5 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import {createUser, deleteUser, retrieveUser, updateUser} from '../services/users';
+import {
+    createHomeCityIdString,
+    createWKTPointString,
+} from "../utils/locationUtils";
+const s2 = require('@radarlabs/s2');
 
 export const createUserHandler = async (
     req: Request,
@@ -9,7 +14,17 @@ export const createUserHandler = async (
     try {
         // req.body to user model is pretty strict. Can you use typeorm or typescript
         // optionals?
-        const user = await createUser(req.body);
+        const data = req.body;
+        const newUser = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            age: data.age,
+            email: data.email,
+            homeCityId: createHomeCityIdString(data.latitude, data.longitude),
+            locationCoordinates: createWKTPointString(data.latitude, data.longitude),
+            points: data.points,
+        };
+        const user = await createUser(newUser);
         res.status(201).json({
             status: 'success',
             data: {
@@ -57,7 +72,18 @@ export const updateUserHandler = async (
     nextHandler: NextFunction
 ): Promise<Response> => {
     try {
-        const user = await updateUser(req.params.id, req.body);
+        let data = req.body;
+        if (data.longitude && data.latitude) {
+            data = {
+                ...data,
+                homeCityId: createHomeCityIdString(data.latitude, data.longitude),
+                locationCoordinates: createWKTPointString(data.latitude, data.longitude),
+            };
+            // need to delete in order for this to not get returned to user.
+            delete data["latitude"];
+            delete data["longitude"];
+        }
+        const user = await updateUser(req.params.id, data);
         return res.status(201).json({
             status: 'success',
             data: {

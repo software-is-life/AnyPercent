@@ -22,8 +22,8 @@ export type ValidRoutesEntity =  Events | Places | Achievements | Tags;
 export interface LocationDetailsBase {
     name: string;
     description: string;
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
 export interface PlaceInput extends LocationDetailsBase{
@@ -50,8 +50,8 @@ export interface ReviewInput {
 }
 
 export interface UserLocationDataInput {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
 }
 
 export interface CityMapInput {
@@ -62,8 +62,8 @@ export interface CityMapInput {
 }
 
 export interface UserAchievementsInput {
-    latitude: string;
-    longitude: string;
+    latitude: number;
+    longitude: number;
     userId: string;
     status?: AchievementStatus;
 }

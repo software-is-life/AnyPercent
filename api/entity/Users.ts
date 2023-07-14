@@ -14,6 +14,7 @@ import {Routes} from "./Routes";
 import {Reviews} from "./Reviews";
 import {Events} from "./Events";
 import {Places} from "./Places";
+import {Geometry} from "geojson";
 
 export enum Role {
     ADMIN = "admin",
@@ -43,11 +44,11 @@ export class User {
     email: string
 
     @Index()
-    @Column({type: 'bigint'})
+    @Column()
     homeCityId: string;
 
-    @Column("point")
-    locationCoordinates: string
+    @Column()
+    locationCoordinates: string;
 
     // TODO: look up how Waze does there user point system
     // research: https://www.waze.com//wiki/Canada/Your_Rank_and_Points

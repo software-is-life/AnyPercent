@@ -29,16 +29,14 @@ export const createUser = async(user: Partial<User>) => {
 
 export const retrieveUser = async (userId: string) => {
     return await userRepository.findOneBy({
-        id: parseInt(userId),
+        userId,
     });
 };
 
 export const updateUser = async (userId: string, body: any) => {
-    let idNum = parseInt(userId);
-
     try {
         const property = await userRepository.findOneBy({
-            id: parseInt(userId),
+            userId,
         });
 
         return await userRepository.save({
@@ -53,9 +51,8 @@ export const updateUser = async (userId: string, body: any) => {
 export const deleteUser = async(userId: string) => {
     try {
         const userToRemove = await userRepository.findOneBy({
-            id: parseInt(userId)
+            userId
         });
-
         return await userRepository.remove(userToRemove);
     } catch (err) {
         console.log(err);

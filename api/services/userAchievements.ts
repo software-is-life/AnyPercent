@@ -2,6 +2,7 @@ import { UserAchievements } from "../entity/UserAchievements";
 import { AppDataSource } from "../data-source";
 import {DeleteResult} from "typeorm";
 import { UserAchievementsInput} from "../controllers/controllers";
+import {Geometry} from "geojson";
 const wkt = require("wkt");
 
 const userAchievementsRepository = AppDataSource.getRepository(UserAchievements);
@@ -32,15 +33,15 @@ export const retrieveUserAchievement = async (userAchievementId: string): Promis
     });
 }
 
-export const createUserAchievement = async (data: Partial<UserAchievementsInput>, pointString: string): Promise<UserAchievements> => {
+export const createUserAchievement = async (data: Partial<UserAchievementsInput>, pointGeometry: string): Promise<UserAchievements> => {
     return await userAchievementsRepository.save(userAchievementsRepository.create({
         status: data.status,
-        placesVisited: pointString,
+        placesVisited: pointGeometry,
         uid: data.userId,
     }));
 };
 
-export const updateUserAchievement = async (userAchievementId: string, data: Partial<UserAchievementsInput>, pointString: string): Promise<UserAchievements> => {
+export const updateUserAchievement = async (userAchievementId: string, data: Partial<UserAchievementsInput>, pointGeometry: string): Promise<UserAchievements> => {
     const userAchievements = await userAchievementsRepository.findOne(
         {
             where: {
@@ -48,7 +49,7 @@ export const updateUserAchievement = async (userAchievementId: string, data: Par
             }
         });
     let newMultiPointString = wkt.parse(userAchievements.placesVisited);
-    newMultiPointString.placesVisited = [...newMultiPointString.placesVisited, pointString];
+    newMultiPointString.placesVisited = [...newMultiPointString.placesVisited, pointGeometry];
     const newUserAchievementData = {
         placesVisited: newMultiPointString,
         ...data

@@ -7,7 +7,7 @@ import {
 } from '../services/userLocationData';
 import {UserLocationData} from "../entity/UserLocationData";
 import {DeleteResult} from "typeorm";
-import {generateS2BigIntIds, createPointString} from "../utils/locationUtils";
+import {generateS2BigIntIds, createWKTPointString} from "../utils/locationUtils";
 import {UserLocationDataInput} from "./controllers";
 
 export const getUsersLocationDataHandler = async (
@@ -70,9 +70,9 @@ export const createUserLocationDataHandler = async (
         throw new Error("In order to create a UserLocationDataPoint you must include all of the following: longitude and latitude ");
     }
     const cityRegionId = generateS2BigIntIds(req);
-    const pointString = createPointString(data.latitude, data.longitude);
+    const pointGeometry = createWKTPointString(data.latitude, data.longitude);
     try {
-        const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(pointString, cityRegionId);
+        const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(pointGeometry, cityRegionId);
         return res.status(201).json({
             data: {
                 createdUserLocationDataPoint

@@ -12,7 +12,7 @@ export class UserLocationData {
     @CreateDateColumn({ name: 'created_at'})
     createdAt: Date
 
-    @Column("point")
+    @Column()
     location: string
 
     @Index()

@@ -39,14 +39,17 @@ export class Achievements {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @ManyToMany(() => Tags, (tags) => tags.tag)
-    @JoinTable()
-    tags: Tags[]
-
     @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.achievement)
     userAchievements: UserAchievements[]
 
-    @ManyToMany(() => Routes, (routes) => routes.achievements)
+    @ManyToMany(() => Tags, (tags) => tags.tag, {
+        createForeignKeyConstraints: false,
+    })
     @JoinTable()
+    tags: Tags[]
+
+    @ManyToMany(() => Routes, (routes) => routes.achievements, {
+        createForeignKeyConstraints: false,
+    })
     routes: Routes[]
 }

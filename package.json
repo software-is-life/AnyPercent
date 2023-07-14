@@ -45,10 +45,12 @@
     "passport-http-bearer": "^1.0.1",
     "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "wkt": "^0.1.1"
   },
   "scripts": {
     "start": "ts-node api/index.ts",
+    "local": "pscale connect any-percent dev-branch-seed --execute 'ts-node api/index.ts'",
     "typeorm": "typeorm-ts-node-commonjs"
   }
 }

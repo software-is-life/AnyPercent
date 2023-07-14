@@ -9,9 +9,11 @@ import {
     Index
 } from "typeorm";
 import {UserLocationData} from "./UserLocationData";
-import {AchievementStatus, UserAchievements} from "./UserAchievements";
+import {UserAchievements} from "./UserAchievements";
 import {Routes} from "./Routes";
 import {Reviews} from "./Reviews";
+import {Events} from "./Events";
+import {Places} from "./Places";
 
 export enum Role {
     ADMIN = "admin",
@@ -66,21 +68,33 @@ export class User {
     @UpdateDateColumn({name: 'updated_at'})
     updatedAt: Date
 
-    @OneToMany(() => UserLocationData, (userLocationData) => userLocationData.user)
+    @OneToMany(() => UserLocationData, (userLocationData) => userLocationData.user, {
+        createForeignKeyConstraints: false,
+    })
     userLocationDataPoints: UserLocationData[]
 
-    @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.user)
+    @OneToMany(() => UserAchievements, (userAchievements) => userAchievements.user, {
+        createForeignKeyConstraints: false,
+    })
     userAchievements: UserAchievements[]
 
-    @OneToMany(() => Routes, (routes) => routes.author)
+    @OneToMany(() => Routes, (routes: Routes) => routes.author, {
+        createForeignKeyConstraints: false,
+    })
     routesAuthored: Routes[]
 
-    @OneToMany(() => Routes, (routes) => routes.author)
-    eventsAuthored: Routes[]
+    @OneToMany(() => Events, (events: Events) => events.author, {
+        createForeignKeyConstraints: false,
+    })
+    eventsAuthored: Events[]
 
-    @OneToMany(() => Routes, (routes) => routes.author)
-    placesAuthored: Routes[]
+    @OneToMany(() => Places, (places: Places) => places.author, {
+        createForeignKeyConstraints: false,
+    })
+    placesAuthored: Places[]
 
-    @OneToMany(() => Reviews, (reviews) => reviews.author)
+    @OneToMany(() => Reviews, (reviews) => reviews.author, {
+        createForeignKeyConstraints: false,
+    })
     reviewsAuthored: Reviews[]
 }

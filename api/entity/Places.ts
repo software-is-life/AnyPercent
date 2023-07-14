@@ -42,7 +42,7 @@ export class Places {
     phone: string
 
     @Column({ nullable: true })
-    hoursOfOperation: string[]
+    hoursOfOperation: string
 
     @Column({ nullable: true })
     website: string
@@ -56,19 +56,29 @@ export class Places {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @ManyToOne(() => CityMap, (cityMap) => cityMap.places)
+    @OneToMany(() => Reviews, (reviews) => reviews.place, {
+        createForeignKeyConstraints: false,
+    })
+    reviews: Reviews[]
+
+    @ManyToOne(() => CityMap, (cityMap) => cityMap.places, {
+        createForeignKeyConstraints: false,
+    })
     city: CityMap
 
-    @ManyToOne(() => User, (user) => user.placesAuthored)
+    @ManyToOne(() => User, (user) => user.placesAuthored, {
+        createForeignKeyConstraints: false,
+    })
     author: User
 
-    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @ManyToMany(() => Tags, (tags) => tags.tag, {
+        createForeignKeyConstraints: false,
+    })
     @JoinTable()
     tags: Tags[]
 
-    @ManyToMany(() => Routes, (routes) => routes.places)
+    @ManyToMany(() => Routes, (routes) => routes.places, {
+        createForeignKeyConstraints: false,
+    })
     routes: Routes[]
-
-    @OneToMany(() => Reviews, (reviews) => reviews.place)
-    reviews: Reviews[]
 }

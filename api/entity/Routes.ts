@@ -26,12 +26,10 @@ export class Routes {
     @Generated("uuid")
     routeId: string
 
-    @Index()
     @Column({
-        type: 'bigint',
-        array: true
+        type: 'bigint'
     })
-    cityRegionId: string[]
+    cityRegionId: string
 
     @Index()
     @Column()
@@ -40,31 +38,48 @@ export class Routes {
     @Column()
     description: string
 
-    @ManyToOne(() => User, (user) => user.routesAuthored)
-    author: User
-
-    @OneToMany(() => Reviews, (reviews) => reviews.route)
-    reviews: Reviews[]
-
-    @ManyToOne(() => CityMap, (cityMap) => cityMap.regions)
-    city: CityMap
-
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @ManyToMany(() => Achievements, (achievements) => achievements.routes)
+    @OneToMany(() => Reviews, (reviews) => reviews.route, {
+        createForeignKeyConstraints: false,
+    })
+    reviews: Reviews[]
+
+    @ManyToOne(() => User, (user) => user.routesAuthored, {
+        createForeignKeyConstraints: false,
+    })
+    author: User
+
+    @ManyToOne(() => CityMap, (cityMap) => cityMap.routes, {
+        createForeignKeyConstraints: false,
+    })
+    city: CityMap
+
+    @ManyToMany(() => Achievements, (achievements: Achievements) => achievements.routes, {
+        createForeignKeyConstraints: false,
+    })
+    @JoinTable()
     achievements: Achievements[]
 
-    @ManyToMany(() => Events, (events) => events.routes)
+    @ManyToMany(() => Events, (events: Events) => events.routes, {
+        createForeignKeyConstraints: false,
+    })
+    @JoinTable()
     events: Events[]
 
-    @ManyToMany(() => Places, (places) => places.routes)
+    @ManyToMany(() => Places, (places: Places) => places.routes, {
+        createForeignKeyConstraints: false,
+    })
+    @JoinTable()
     places: Places[]
 
-    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @ManyToMany(() => Tags, (tags: Tags) => tags.tag, {
+        createForeignKeyConstraints: false,
+    })
     @JoinTable()
     tags: Tags[]
 }

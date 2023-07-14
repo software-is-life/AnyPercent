@@ -29,7 +29,7 @@ export const retrieveUserLocationDataPoint = async (userId: string,
             user: true
         },
         where: {
-            ...(userId && {userId})
+            ...(userId && {uid: userId})
         },
         order: {
             createdAt: "DESC"
@@ -48,6 +48,6 @@ export const createUserLocationDataPoint = async (location: string, cityRegionId
 
 export const deleteUserLocationData = async (userId: string): Promise<DeleteResult> => {
     return await userLocationDataRepository.delete({
-        userId
+        uid: userId
     });
 }

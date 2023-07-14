@@ -1,5 +1,4 @@
-import {Column, CreateDateColumn, Entity, Generated, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import Users from "../routers/users";
+import {Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./Users";
 
 @Entity()
@@ -8,9 +7,8 @@ export class UserLocationData {
     id: number
 
     @Column()
-    userId: string
+    uid: string
 
-    @Index()
     @CreateDateColumn({ name: 'created_at'})
     createdAt: Date
 
@@ -21,6 +19,8 @@ export class UserLocationData {
     @Column({type: 'bigint'})
     cityRegionId: string
 
-    @ManyToOne(() => Users, (users) => users.userLocationDataPoints)
+    @ManyToOne(() => User, (user: User) => user.userLocationDataPoints, {
+        createForeignKeyConstraints: false,
+    })
     user: User
 }

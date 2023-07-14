@@ -43,3 +43,6 @@ curl -X POST -d '{"firstName": "John", "lastName": "Doe", "age": 25 }' -H "Conte
 curl -X PUT -d '{"age": 36 }' -H "Content-Type: application/json" localhost:8080/api/v1/users/update/1
 curl -X DELETE localhost:8080/api/v1/users/delete/2 
 ```
+
+#TODO
+- Write batch processing logic for clearing up null rows from tables due to no foreign key constraints.

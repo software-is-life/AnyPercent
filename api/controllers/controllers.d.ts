@@ -29,7 +29,7 @@ export interface LocationDetailsBase {
 export interface PlaceInput extends LocationDetailsBase{
     address: string;
     phone?: string;
-    hoursOfOperation?: string[]
+    hoursOfOperation?: string
     website?: string;
     rating?: number;
 }

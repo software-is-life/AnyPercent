@@ -29,21 +29,27 @@ export class CityMap {
     @Column()
     country: string
 
+    @Column({type: 'bigint'})
+    regions: string[]
+
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @Column({type: 'bigint'})
-    regions: string[]
-
-    @OneToMany(() => Routes, (routes) => routes.city)
+    @OneToMany(() => Routes, (routes) => routes.city, {
+        createForeignKeyConstraints: false,
+    })
     routes: Routes[]
 
-    @OneToMany(() => Events, (events) => events.city)
+    @OneToMany(() => Events, (events) => events.city, {
+        createForeignKeyConstraints: false,
+    })
     events: Events[]
 
-    @OneToMany(() => Places, (places) => places.city)
+    @OneToMany(() => Places, (places) => places.city, {
+        createForeignKeyConstraints: false,
+    })
     places: Places[]
 }

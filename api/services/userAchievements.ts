@@ -1,20 +1,20 @@
 import { UserAchievements } from "../entity/UserAchievements";
 import { AppDataSource } from "../data-source";
 import {DeleteResult} from "typeorm";
-import {CityMapInput, UserAchievementsInput} from "../controllers/controllers";
-import {CityMap} from "../entity/CityMap";
+import { UserAchievementsInput} from "../controllers/controllers";
+const wkt = require("wkt");
 
 const userAchievementsRepository = AppDataSource.getRepository(UserAchievements);
 export const retrieveUserAchievements = async (userId: string,
-                                                     skip: number,
-                                                     limit: number): Promise<UserAchievements[]> => {
+                                               skip: number,
+                                               limit: number): Promise<UserAchievements[]> => {
     return await userAchievementsRepository.find({
         relations: {
             user: true,
             achievement: true,
         },
         where: {
-            userId
+            uid: userId
         },
         order: {
             updatedAt: "DESC"
@@ -35,8 +35,8 @@ export const retrieveUserAchievement = async (userAchievementId: string): Promis
 export const createUserAchievement = async (data: Partial<UserAchievementsInput>, pointString: string): Promise<UserAchievements> => {
     return await userAchievementsRepository.save(userAchievementsRepository.create({
         status: data.status,
-        placesVisited: [pointString],
-        userId: data.userId,
+        placesVisited: pointString,
+        uid: data.userId,
     }));
 };
 
@@ -47,8 +47,10 @@ export const updateUserAchievement = async (userAchievementId: string, data: Par
                 userAchievementId
             }
         });
+    let newMultiPointString = wkt.parse(userAchievements.placesVisited);
+    newMultiPointString.placesVisited = [...newMultiPointString.placesVisited, pointString];
     const newUserAchievementData = {
-        placesVisited: [pointString, ...userAchievements.placesVisited],
+        placesVisited: newMultiPointString,
         ...data
     };
     userAchievementsRepository.merge(userAchievements, newUserAchievementData);

@@ -17,7 +17,7 @@ export const loginHandler = async (
             // });
 
             // @ts-ignore
-            req.session.user = "test";
+            req.session.user = "SpewpeePeeePPoooooppooooooHead";
             console.log(req.session);
             console.log(req.session.id); // TODO: get this from
             req.session.save((err) => {

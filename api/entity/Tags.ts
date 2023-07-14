@@ -23,8 +23,7 @@ export class Tags {
     @Generated("uuid")
     tagId: string
 
-    @Index()
-    @Column('character varying', {
+    @Column('varchar', {
         length: 25,
         unique: true
     })
@@ -33,23 +32,28 @@ export class Tags {
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
-    @ManyToMany(() => Achievements, (achievements: Achievements) => achievements.tags)
-    @JoinTable()
+    @ManyToMany(() => Achievements, (achievements: Achievements) => achievements.tags, {
+        createForeignKeyConstraints: false,
+    })
     achievements: Achievements
 
-    @ManyToMany(() => Events, (events: Events) => events.tags)
-    @JoinTable()
+    @ManyToMany(() => Events, (events: Events) => events.tags, {
+        createForeignKeyConstraints: false,
+    })
     events: Events
 
-    @ManyToMany(() => Places, (places: Places) => places.tags)
-    @JoinTable()
+    @ManyToMany(() => Places, (places: Places) => places.tags, {
+        createForeignKeyConstraints: false,
+    })
     places: Places
 
-    @ManyToMany(() => Routes, (routes: Routes) => routes.tags)
-    @JoinTable()
+    @ManyToMany(() => Routes, (routes: Routes) => routes.tags, {
+        createForeignKeyConstraints: false,
+    })
     routes: Routes
 
-    @ManyToMany(() => Reviews, (reviews: Reviews) => reviews.tags)
-    @JoinTable()
+    @ManyToMany(() => Reviews, (reviews: Reviews) => reviews.tags, {
+        createForeignKeyConstraints: false,
+    })
     reviews: Reviews
 }

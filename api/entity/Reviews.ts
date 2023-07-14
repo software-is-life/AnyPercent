@@ -40,19 +40,29 @@ export class Reviews {
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
 
-    @ManyToOne(() => User, (user) => user.reviewsAuthored)
+    @ManyToOne(() => User, (user) => user.reviewsAuthored, {
+        createForeignKeyConstraints: false,
+    })
     author: User
 
-    @ManyToOne(() => Events, (events) => events.reviews)
+    @ManyToOne(() => Events, (events) => events.reviews, {
+        createForeignKeyConstraints: false,
+    })
     event: Events
 
-    @ManyToOne(() => Places, (places) => places.reviews)
+    @ManyToOne(() => Places, (places) => places.reviews, {
+        createForeignKeyConstraints: false,
+    })
     place: Places
 
-    @ManyToOne(() => Routes, (routes) => routes.reviews)
+    @ManyToOne(() => Routes, (routes) => routes.reviews, {
+        createForeignKeyConstraints: false,
+    })
     route: Routes
 
-    @ManyToMany(() => Tags, (tags) => tags.tag)
+    @ManyToMany(() => Tags, (tags) => tags.tag, {
+        createForeignKeyConstraints: false,
+    })
     @JoinTable()
     tags: Tags[]
 }

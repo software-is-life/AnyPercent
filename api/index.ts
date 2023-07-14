@@ -34,7 +34,7 @@ import cityMapRouter from './routers/cityMap';
 import * as process from "process";
 
 // CONSTANTS
-const ONE_DAY = 1000 * 60 * 60 * 24;
+const ONE_DAY = 1000 * 60; //* 60 * 24;
 const ONE_WEEK = ONE_DAY * 7;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 

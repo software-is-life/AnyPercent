@@ -7,7 +7,6 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import Users from "../routers/users";
 import {User} from "./Users";
 import {Achievements} from "./Achievements";
 
@@ -28,13 +27,7 @@ export class UserAchievements {
     userAchievementId: string
 
     @Column()
-    userId: string
-
-    @ManyToOne(() => Users, (users) => users.userAchievements)
-    user: User
-
-    @ManyToOne(() => Achievements, (achievements) => achievements)
-    achievement: Achievements
+    uid: string
 
     @Index()
     @Column({
@@ -44,12 +37,22 @@ export class UserAchievements {
     })
     status: AchievementStatus
 
-    @Column("point", { array: true })
-    placesVisited: string[]
+    @Column("multipoint")
+    placesVisited: string
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
+
+    @ManyToOne(() => User, (user: User) => user.userAchievements, {
+        createForeignKeyConstraints: false,
+    })
+    user: User
+
+    @ManyToOne(() => Achievements, (achievements) => achievements.userAchievements, {
+        createForeignKeyConstraints: false,
+    })
+    achievement: Achievements
 }

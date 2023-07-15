@@ -32,7 +32,7 @@ export class Events {
     description: string
 
     @Index()
-    @Column({type: 'bigint'})
+    @Column()
     cityRegionId: string
 
     @CreateDateColumn({ name: 'created_at' })

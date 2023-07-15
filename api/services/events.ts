@@ -42,10 +42,11 @@ export const createEvent = async (data: EventInput, cityRegionId: string): Promi
     }));
 };
 
-export const updateEvent = async (eventId: string, data: Partial<EventInput>): Promise<Events> => {
+export const updateEvent = async (eventId: string, data: Partial<EventInput>, cityRegionId: string): Promise<Events> => {
     const event = await eventsRepository.findOneBy({
         eventId
     });
+    event.cityRegionId = cityRegionId && cityRegionId != "" ? cityRegionId : event.cityRegionId;
     eventsRepository.merge(event, data);
     return await eventsRepository.save(event);
 };

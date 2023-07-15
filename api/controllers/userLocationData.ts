@@ -66,12 +66,13 @@ export const createUserLocationDataHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: UserLocationDataInput = req.body;
-    if (!data.latitude || !data.longitude || !data.userId) {
-        throw new Error("In order to create a UserLocationDataPoint you must include all of the following: longitude and latitude ");
-    }
-    const cityRegionId: string = createCityIdString(data.latitude, data.longitude);
-    const pointGeometry: string = createWKTPointString(data.latitude, data.longitude);
+
     try {
+        if (!data.latitude || !data.longitude || !data.userId) {
+            throw new Error("In order to create a UserLocationDataPoint you must include all of the following: longitude and latitude ");
+        }
+        const cityRegionId: string = createCityIdString(data.latitude, data.longitude);
+        const pointGeometry: string = createWKTPointString(data.latitude, data.longitude);
         const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(data.userId, pointGeometry, cityRegionId);
         return res.status(201).json({
             data: {

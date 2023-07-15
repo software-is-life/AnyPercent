@@ -65,11 +65,12 @@ export const createUserAchievementHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: UserAchievementsInput = req.body;
-    if (!data.userId || !data.latitude || !data.longitude) {
-        throw new Error("In order to create a UserAchievement you must include a latitude, longitude, and a userId");
-    }
-    const placeVisitedPoint = createWKTMultiPointString(data.latitude, data.longitude);
+
     try {
+        if (!data.userId || !data.latitude || !data.longitude) {
+            throw new Error("In order to create a UserAchievement you must include a latitude, longitude, and a userId");
+        }
+        const placeVisitedPoint = createWKTMultiPointString(data.latitude, data.longitude);
         const createdUserAchievement: UserAchievements = await createUserAchievement(data, placeVisitedPoint);
         return res.status(201).json({
             data: {

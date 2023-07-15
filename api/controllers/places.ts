@@ -74,11 +74,11 @@ export const createPlaceHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: PlaceInput = req.body;
-    if (!data.latitude || !data.longitude || !data.name || !data.description) {
-        throw new Error("request body must at least include name, longitude, latitude, and description");
-    }
-    const cityRegionId = createCityIdString(data.latitude, data.longitude);
     try {
+        if (!data.latitude || !data.longitude || !data.name || !data.description) {
+            throw new Error("request body must at least include name, longitude, latitude, and description");
+        }
+        const cityRegionId = createCityIdString(data.latitude, data.longitude);
         const createdPlace: Places = await createPlace(data, cityRegionId);
         return res.status(201).json({
             data: {

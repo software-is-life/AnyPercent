@@ -8,7 +8,7 @@ import {
 } from '../services/events';
 
 import {EventInput} from "./controllers";
-import {generateS2BigIntIds} from "../utils/locationUtils";
+import {createCityIdString, generateS2BigIntIds} from "../utils/locationUtils";
 import {validateRetrievingLocations} from "../utils/inputValidation";
 import {Events} from "../entity/Events";
 import {DeleteResult} from "typeorm";
@@ -24,11 +24,14 @@ export const getEventsHandler = async (
     const name = String(data.name);
     const skip = Number(data.skip);
     const limit = Number(data.limit);
-    if (validateRetrievingLocations(data)) {
-        throw new Error("request query params must at least include one of the following: name, longitude & latitude pair, or cityId");
-    }
-    const cityRegionId = !data.cityRegionId && data.latitude && data.longitude ? generateS2BigIntIds(req) : undefined;
+
     try {
+        if (!validateRetrievingLocations(data)) {
+            throw new Error("request query params must at least include one of the following: name, longitude & latitude pair, or cityId");
+        }
+        // @ts-ignore
+        let cityRegionId = data.cityRegionId ? data.cityRegionId : data.latitude && data.longitude ? createCityIdString(data.latitude, data.longitude) : undefined;
+        // @ts-ignore
         const events: Events[] = await retrieveEvents(cityRegionId, name, skip, limit);
         return res.status(201).json({
             data: {
@@ -72,11 +75,11 @@ export const createEventHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: EventInput = req.body;
-    if (!data.latitude || !data.longitude || !data.name || !data.description) {
-        throw new Error("request body must at least include name, longitude, latitude, and description");
-    }
-    const cityRegionId = generateS2BigIntIds(req);
     try {
+        if (!data.latitude || !data.longitude || !data.name || !data.description) {
+            throw new Error("request body must at least include name, longitude, latitude, and description");
+        }
+        const cityRegionId = createCityIdString(data.latitude, data.longitude);
         const createdEvent: Events = await createEvent(data, cityRegionId);
         return res.status(201).json({
             data: {
@@ -99,8 +102,9 @@ export const updateEventHandler = async (
     // TODO: validate req.body update. Potentially, use express-validator
     const eventId: string = req.params.eventId;
     const data: Partial<EventInput> = req.body;
+    const cityRegionId = createCityIdString(data.latitude, data.longitude);
     try {
-        const updatedEvent: Events = await updateEvent(eventId, data);
+        const updatedEvent: Events = await updateEvent(eventId, data, cityRegionId);
         return res.status(201).json({
             data: {
                 updatedEvent

@@ -92,7 +92,7 @@ app.use('/api/v1.0/users', userRouter);
 app.use('/api/v1.0/user-location-data', userLocationDataRouter);
 app.use('/api/v1.0/user-achievements', userAchievementsRouter);
 app.use('/api/v1.0/achievements', achievementsRouter);
-app.use('/api/v1.0/routers', routesRouter);
+app.use('/api/v1.0/routes', routesRouter);
 app.use('/api/v1.0/places', placesRouter);
 app.use('/api/v1.0/events', eventsRouter);
 app.use('/api/v1.0/reviews', reviewsRouter);

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { generateS2BigIntIds } from '../utils/locationUtils';
+import {createCityIdString, generateS2BigIntIds} from '../utils/locationUtils';
 import {
     createRoute,
     retrieveRoute,
@@ -16,12 +16,13 @@ export const getRoutesHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    let currentS2LocationCellId = generateS2BigIntIds(req);
-    let skip = Number(req.query.skip);
-    let limit = Number(req.query.limit);
-
     try {
-        const paginatedRoutes = await retrieveRoutes(currentS2LocationCellId, skip, limit);
+        const data = req.query;
+        // @ts-ignore
+        let cityId = String(data.cityId);
+        let skip = Number(data.skip);
+        let limit = Number(data.limit)
+        const paginatedRoutes = await retrieveRoutes(cityId, skip, limit);
         return res.status(201).json({
             data: {
                 paginatedRoutes
@@ -69,7 +70,7 @@ export const createRouteHandler = async (
         if (!data.name || !data.description || !data.latitude || !data.longitude ) {
             throw new Error("In order to create a Route you must include all of the following: name, description, longitude, and latitude ");
         }
-        const cityRegionId = generateS2BigIntIds(req);
+        const cityRegionId = createCityIdString(data.latitude, data.longitude);
         const createdRoute: Routes = await createRoute(data, cityRegionId);
         return res.status(201).json({
             data: {

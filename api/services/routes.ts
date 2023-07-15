@@ -5,6 +5,7 @@ import {RouteInput, ValidRoutesEntity} from "../controllers/controllers";
 import {retrieveEvent} from "./events";
 import {retrievePlace} from "./places";
 import {retrieveTag} from "./tags";
+import {retrieveAchievement} from "./achievements";
 
 const routesRepository = AppDataSource.getRepository(Routes);
 
@@ -42,7 +43,8 @@ export const createRoute = async (data: Partial<RouteInput>, cityRegionId: strin
     return await routesRepository.save(routesRepository.create({
         cityRegionId: cityRegionId,
         name: data.name,
-        description: data.description
+        description: data.description,
+        ...data
     }));
 };
 
@@ -87,9 +89,9 @@ const spreadAndMergeEntity = async (entityStringArr: string[], category: string)
             case "events":
                 output.push(await retrieveEvent(currentElem));
                 break;
-            // case "achievements":
-            //     output.push(await retrieveAchievement(currentElem));
-            //     break;
+            case "achievements":
+                output.push(await retrieveAchievement(currentElem));
+                break;
             case "tags":
                 output.push(await retrieveTag(currentElem));
                 break;

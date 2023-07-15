@@ -26,9 +26,7 @@ export class Routes {
     @Generated("uuid")
     routeId: string
 
-    @Column({
-        type: 'bigint'
-    })
+    @Column()
     cityRegionId: string
 
     @Index()

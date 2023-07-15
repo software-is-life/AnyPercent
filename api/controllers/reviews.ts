@@ -23,11 +23,10 @@ export const getReviewsHandler = async (
     const skip = Number(data.skip);
     const limit = Number(data.limit);
 
-    if (!title) {
-        throw new Error("request query params must at least have title param for query search. description & rating are optional parameters.");
-    }
-
     try {
+        if (!title) {
+            throw new Error("request query params must at least have title param for query search. description & rating are optional parameters.");
+        }
         const reviews: Reviews[] = await retrieveReviews(title, description, rating, skip, limit);
         return res.status(201).json({
             data: {
@@ -71,10 +70,11 @@ export const createReviewHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: ReviewInput = req.body;
-    if (!data.title || !data.description || !data.rating) {
-        throw new Error("request body must at least include title, description, and a rating");
-    }
+
     try {
+        if (!data.title || !data.description || !data.rating) {
+            throw new Error("request body must at least include title, description, and a rating");
+        }
         const createdReview: Reviews = await createReview(data);
         return res.status(201).json({
             data: {

@@ -64,11 +64,11 @@ export const createAchievementHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: AchievementsInput = req.body;
-    if ( !data.name || !data.description) {
-        throw new Error("request body must at least include name and description");
-    }
-    const cityRegionId = generateS2BigIntIds(req);
     try {
+        if ( !data.name || !data.description) {
+            throw new Error("request body must at least include name and description");
+        }
+        const cityRegionId = generateS2BigIntIds(req);
         const createdAchievement: Achievements = await createAchievement(data);
         return res.status(201).json({
             data: {

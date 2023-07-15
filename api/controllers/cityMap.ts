@@ -37,11 +37,11 @@ export const createCityMapHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: CityMapInput = req.body;
-    if (!data.name || !data.country) {
-        throw new Error("In order to create a CityMap you must include all of the following: name & country");
-    }
-    const cityRegionId = generateS2BigIntIds(req);
     try {
+        if (!data.name || !data.country) {
+            throw new Error("In order to create a CityMap you must include all of the following: name & country");
+        }
+        const cityRegionId = generateS2BigIntIds(req);
         const createdCityMap: CityMap = await createCityMap(data, cityRegionId);
         return res.status(201).json({
             data: {

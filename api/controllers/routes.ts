@@ -65,11 +65,11 @@ export const createRouteHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: RouteInput = req.body;
-    if (!data.name || !data.description || !data.latitude || !data.longitude ) {
-        throw new Error("In order to create a Route you must include all of the following: name, description, longitude, and latitude ");
-    }
-    const cityRegionId = generateS2BigIntIds(req);
     try {
+        if (!data.name || !data.description || !data.latitude || !data.longitude ) {
+            throw new Error("In order to create a Route you must include all of the following: name, description, longitude, and latitude ");
+        }
+        const cityRegionId = generateS2BigIntIds(req);
         const createdRoute: Routes = await createRoute(data, cityRegionId);
         return res.status(201).json({
             data: {

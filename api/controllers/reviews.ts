@@ -20,12 +20,13 @@ export const getReviewsHandler = async (
     const title = String(data.title);
     const description = String(data.description);
     const rating = Number(data.rating);
+    // TODO: consider default of skip of 0 and limit of 10 for all skip/limit query params.
     const skip = Number(data.skip);
     const limit = Number(data.limit);
 
     try {
-        if (!title) {
-            throw new Error("request query params must at least have title param for query search. description & rating are optional parameters.");
+        if (!title && !description) {
+            throw new Error("request query params must at least have title & description  param for query search. Rating is optional parameters.");
         }
         const reviews: Reviews[] = await retrieveReviews(title, description, rating, skip, limit);
         return res.status(201).json({

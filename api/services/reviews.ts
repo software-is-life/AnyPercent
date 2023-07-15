@@ -1,6 +1,6 @@
 import { Reviews } from "../entity/Reviews";
 import { AppDataSource } from "../data-source";
-import {DeleteResult, Repository} from "typeorm";
+import {DeleteResult, Like, Repository} from "typeorm";
 import {ReviewInput} from "../controllers/controllers";
 
 const reviewsRepository: Repository<Reviews> = AppDataSource.getRepository(Reviews);
@@ -11,19 +11,22 @@ export const retrieveReviews = async (title: string,
                                      skip: number,
                                      limit: number): Promise<Reviews[]> => {
     // using spread to and conditional object for optional query params rating and description.
+    // TODO: add like comparison
     return await reviewsRepository.find({
         relations: {
             tags: true,
         },
         where: [
             {
-                title,
+                // how to do where like typeorm
+                title: Like(`%${title}%`),
                 ...(rating && { rating }),
-                ...(description && { description })
+                ...(description && { description: Like(`%${description}%`), })
             }
         ],
         order: {
-            rating: "DESC"
+            title: "ASC",
+            ...(rating && { rating: "DESC" }),
         },
         skip: skip,
         take: limit,

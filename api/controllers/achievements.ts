@@ -6,8 +6,8 @@ import {
     deleteAchievement,
     retrieveAchievements
 } from '../services/achievements';
-import {generateS2BigIntIds} from "../utils/locationUtils";
-import {AchievementsInput} from "./controllers";
+import {createWKTMultiPointString, generateS2BigIntIds} from "../utils/locationUtils";
+import {AchievementsInput, UpdateAchievementsInput} from "./controllers";
 import {DeleteResult} from "typeorm";
 import {Achievements} from "../entity/Achievements";
 export const getAchievementsHandler = async (
@@ -65,11 +65,11 @@ export const createAchievementHandler = async (
 ): Promise<Response> => {
     const data: AchievementsInput = req.body;
     try {
-        if ( !data.name || !data.description) {
-            throw new Error("request body must at least include name and description");
+        if (!data.name || !data.description || !data.pointsToAward || !data.latitude || !data.longitude) {
+            throw new Error("request body must at least include name, description, pointsToAward and an initial latitude / longitude pair");
         }
-        const cityRegionId = generateS2BigIntIds(req);
-        const createdAchievement: Achievements = await createAchievement(data);
+        const startingAchievementWKTPoint = createWKTMultiPointString(data.latitude, data.longitude);
+        const createdAchievement: Achievements = await createAchievement(data, startingAchievementWKTPoint);
         return res.status(201).json({
             data: {
                 createdAchievement
@@ -89,9 +89,10 @@ export const updateAchievementHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const achievementId: string = req.params.achievementId;
-    const data: Partial<AchievementsInput> = req.body;
+    const data: Partial<UpdateAchievementsInput> = req.body;
+    const achievementLocationsMultiPoint: string = createWKTMultiPointString(data.latitude, data.longitude);
     try {
-        const updatedAchievement: Achievements = await updateAchievement(achievementId, data);
+        const updatedAchievement: Achievements = await updateAchievement(achievementId, data, achievementLocationsMultiPoint);
         return res.status(201).json({
             data: {
                 updatedAchievement

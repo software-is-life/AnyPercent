@@ -38,7 +38,7 @@ export class Achievements {
 
     @Index()
     @Column({ nullable: true })
-    author: string
+    authorId: string
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;

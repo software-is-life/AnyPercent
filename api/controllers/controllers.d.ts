@@ -72,4 +72,11 @@ export interface UserAchievementsInput {
 export interface AchievementsInput {
     name: string;
     description: string;
+    pointsToAward: number;
+    latitude: number;
+    longitude: number;
+}
+
+export interface UpdateAchievementsInput extends AchievementsInput{
+    addOrRemovePoint: "add" | "remove";
 }

@@ -18,7 +18,6 @@ export const retrieveReviews = async (title: string,
         },
         where: [
             {
-                // how to do where like typeorm
                 title: Like(`%${title}%`),
                 ...(rating && { rating }),
                 ...(description && { description: Like(`%${description}%`), })

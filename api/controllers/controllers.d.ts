@@ -58,8 +58,10 @@ export interface UserLocationDataInput {
 export interface CityMapInput {
     name: string;
     country: string;
+    cityId: string;
+    latitude: string;
+    longitude: string;
     province?: string;
-    regionsId?: string;
 }
 
 export interface UserAchievementsInput {

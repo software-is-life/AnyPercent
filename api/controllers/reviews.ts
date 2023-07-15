@@ -42,7 +42,7 @@ export const getReviewsHandler = async (
             message: err.message,
         });
     }
-}
+};
 
 export const getReviewHandler = async (
     req: Request,

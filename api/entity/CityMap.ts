@@ -2,7 +2,7 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    Generated,
+    Generated, Index,
     OneToMany,
     PrimaryGeneratedColumn,
     UpdateDateColumn
@@ -20,6 +20,10 @@ export class CityMap {
     @Generated("uuid")
     cityMapId: string
 
+    @Index()
+    @Column()
+    cityId: string
+
     @Column()
     name: string
 
@@ -30,7 +34,7 @@ export class CityMap {
     country: string
 
     @Column()
-    regions: string
+    regionId: string
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;

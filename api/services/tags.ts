@@ -3,22 +3,24 @@ import { AppDataSource } from "../data-source";
 import {Events} from "../entity/Events";
 
 const tagsRepository = AppDataSource.getRepository(Tags);
-export const  getRelatedItemsWithTags = async (data: any) => {
-    let query = tagsRepository
-        .createQueryBuilder("tags")
-        .relation(Tags, "routes");
-
-    if (data.searchReviews) {
-        query = query
-            .relation(Tags, "reviews");
-    }
-
-    if (data.searchAchievements) {
-        query = query
-            .relation(Tags, "achievements");
-    }
-
-    return query.of(data.tag).loadMany();
+export const  getRelatedItemsWithTags = async (tagName: string, skip: number, limit: number) => {
+    return await tagsRepository.find({
+        relations: {
+            reviews: true,
+            routes: true,
+            events: true,
+            places: true,
+            achievements: true
+        },
+        where: {
+            ...(tagName && {tag: tagName})
+        },
+        order: {
+            createdAt: "DESC"
+        },
+        skip: skip,
+        take: limit,
+    });
 };
 
 export const  createTag = async (tagName: string) => {

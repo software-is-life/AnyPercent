@@ -7,6 +7,7 @@ import {
 import {Tags} from "../entity/Tags";
 import {RelatedItems} from "./controllers";
 
+// TODO: fix this into data repository similar to other stuff
 export const getTagRelatedItemsHandler = async (
     req: Request,
     res: Response,
@@ -18,7 +19,8 @@ export const getTagRelatedItemsHandler = async (
         if (!data.tagName || data.tagName === "") {
             throw new Error("Related Items cannot be retrieved without a valid tag name.")
         }
-        const relatedItems: RelatedItems[] = await getRelatedItemsWithTags(data);
+        // @ts-ignore
+        const relatedItems: RelatedItems[] = await getRelatedItemsWithTags(data.tagName, data.skip, data.limit);
         return res.status(201).json({
             message: `Related Items associated with Tag Name ${data.tagName}`,
             data: {

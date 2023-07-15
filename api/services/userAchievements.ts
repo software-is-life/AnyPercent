@@ -3,7 +3,8 @@ import { AppDataSource } from "../data-source";
 import {DeleteResult} from "typeorm";
 import { UserAchievementsInput} from "../controllers/controllers";
 import {Geometry} from "geojson";
-const wkt = require("wkt");
+import * as wkx from "wkx";
+import {MultiPoint, Point} from "wkx";
 
 const userAchievementsRepository = AppDataSource.getRepository(UserAchievements);
 export const retrieveUserAchievements = async (userId: string,
@@ -48,10 +49,13 @@ export const updateUserAchievement = async (userAchievementId: string, data: Par
                 userAchievementId
             }
         });
-    let newMultiPointString = wkt.parse(userAchievements.placesVisited);
-    newMultiPointString.placesVisited = [...newMultiPointString.placesVisited, pointGeometry];
+    let newMultiPointString: any = wkx.Geometry.parse(userAchievements.placesVisited).toGeoJSON();
+    let pointToAdd: any = wkx.Geometry.parse(pointGeometry).toGeoJSON();
+    const coords = pointToAdd.coordinates;
+    newMultiPointString.coordinates = [ ...newMultiPointString.coordinates, [coords[0], coords[1]] ];
+
     const newUserAchievementData = {
-        placesVisited: newMultiPointString,
+        placesVisited: wkx.Geometry.parseGeoJSON(newMultiPointString).toWkt(),
         ...data
     };
     userAchievementsRepository.merge(userAchievements, newUserAchievementData);

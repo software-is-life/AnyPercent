@@ -32,20 +32,21 @@ export const retrievePlace = async (placeId: string): Promise<Places> => {
     });
 }
 
-export const createPlace = async (data: PlaceInput, cityRegionId: string): Promise<Places> => {
-    // TODO: can destructuring make this easier to read?
+export const createPlace = async (data: PlaceInput, cityRegionId: string): Promise<Places> => {// TODO: can destructuring make this easier to read?
     // TODO: how to attach user as author for creating place
-    // TODO: how does typeORM and typescript handle potentially empty inputs.
     return await placesRepository.save(placesRepository.create({
         cityRegionId,
         ...data
     }));
 };
 
-export const updatePlace = async (placeId: string, data: Partial<PlaceInput>): Promise<Places> => {
+export const updatePlace = async (placeId: string, cityRegionId: string, data: Partial<PlaceInput>): Promise<Places> => {
     const place = await placesRepository.findOneBy({
         placeId
     });
+    if (cityRegionId && cityRegionId != "") {
+        place.cityRegionId = cityRegionId;
+    }
     placesRepository.merge(place, data);
     return await placesRepository.save(place);
 }

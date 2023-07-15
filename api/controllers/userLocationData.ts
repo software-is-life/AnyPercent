@@ -7,7 +7,7 @@ import {
 } from '../services/userLocationData';
 import {UserLocationData} from "../entity/UserLocationData";
 import {DeleteResult} from "typeorm";
-import {generateS2BigIntIds, createWKTPointString, createHomeCityIdString} from "../utils/locationUtils";
+import {generateS2BigIntIds, createWKTPointString, createCityIdString} from "../utils/locationUtils";
 import {UserLocationDataInput} from "./controllers";
 
 export const getUsersLocationDataHandler = async (
@@ -15,7 +15,7 @@ export const getUsersLocationDataHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const currentS2LocationCellId = createHomeCityIdString(Number(req.query.latitude), Number(req.query.longitude))
+    const currentS2LocationCellId = createCityIdString(Number(req.query.latitude), Number(req.query.longitude))
     const skip = Number(req.query.skip);
     const limit = Number(req.query.limit);
 
@@ -69,7 +69,7 @@ export const createUserLocationDataHandler = async (
     if (!data.latitude || !data.longitude || !data.userId) {
         throw new Error("In order to create a UserLocationDataPoint you must include all of the following: longitude and latitude ");
     }
-    const cityRegionId: string = createHomeCityIdString(data.latitude, data.longitude);
+    const cityRegionId: string = createCityIdString(data.latitude, data.longitude);
     const pointGeometry: string = createWKTPointString(data.latitude, data.longitude);
     try {
         const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(data.userId, pointGeometry, cityRegionId);

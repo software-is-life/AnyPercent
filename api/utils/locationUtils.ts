@@ -24,7 +24,7 @@ export const parseWKTPointStringToGeometry = (wktStr: string) => {
     return wkx.Geometry.parse(wktStr);
 };
 
-export const createHomeCityIdString = (latitude: number, longitude: number) => {
+export const createCityIdString = (latitude: number, longitude: number) => {
     return String(BigInt(new s2.CellId(new s2.LatLng(Number(latitude), Number(longitude))).id()))
 };
 

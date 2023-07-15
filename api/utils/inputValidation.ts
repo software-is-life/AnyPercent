@@ -14,4 +14,4 @@ export const validateAddress = () => {};
 
 export const validatePhoneNumber = () => {};
 
-export const validateRetrievingLocations = (data: any): boolean => !data.longitude && !data.latitude || !data.cityRegionId || !data.name;
+export const validateRetrievingLocations = (data: any): boolean => data.longitude && data.latitude || data.cityRegionId || data.name;

@@ -1,5 +1,5 @@
 import { AppDataSource } from "./data-source"
-// import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response, Errback } from "express";
 const express = require("express");
 require("dotenv").config();
 
@@ -32,6 +32,7 @@ import eventsRouter from './routers/events';
 import reviewsRouter from './routers/reviews';
 import cityMapRouter from './routers/cityMap';
 import * as process from "process";
+import {errorLogger, errorResponder} from "./utils/errorUtils";
 
 // CONSTANTS
 const ONE_DAY = 1000 * 60; //* 60 * 24;
@@ -99,10 +100,9 @@ app.use('/api/v1.0/city-map', cityMapRouter);
 app.use('/api/v1.0/tags', tagsRouter);
 
 // TODO: include more middleware, especially auth.
-// UNHANDLED ROUTE
-// app.all('*', (req: Request, res: Response, next: NextFunction) => {
-//     return (new Error("404 encountered"));
-// });
+// UNHANDLED ROUTEb
+app.use(errorLogger);
+app.use(errorResponder);
 
 app.listen(8080);
 console.log(`Server started on port: ${8080}`);

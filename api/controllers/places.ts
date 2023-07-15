@@ -6,11 +6,12 @@ import {
     deletePlace,
     retrievePlaces
 } from '../services/places';
-import {generateS2BigIntIds} from "../utils/locationUtils";
+import {createCityIdString, generateS2BigIntIds} from "../utils/locationUtils";
 import {PlaceInput} from "./controllers";
 import {validateRetrievingLocations} from "../utils/inputValidation";
 import {DeleteResult} from "typeorm";
 import {Places} from "../entity/Places";
+
 export const getPlacesHandler = async (
     req: Request,
     res: Response,
@@ -23,11 +24,14 @@ export const getPlacesHandler = async (
     const name = String(data.name);
     const skip = Number(data.skip);
     const limit = Number(data.limit);
-    if (validateRetrievingLocations(data)) {
-        throw new Error("request query params must at least include one of the following: name, longitude & latitude pair, or cityId");
-    }
-    const cityRegionId = !data.cityRegionId && data.latitude && data.longitude ? generateS2BigIntIds(req) : undefined;
+
     try {
+        if (!validateRetrievingLocations(data)) {
+            throw new Error("request query params must at least include one of the following: name, longitude & latitude pair, or cityId");
+        }
+        // @ts-ignore
+        let cityRegionId = data.cityRegionId ? data.cityRegionId : data.latitude && data.longitude ? createCityIdString(data.latitude, data.longitude) : undefined;
+        // @ts-ignore
         const places: Places[] = await retrievePlaces(cityRegionId, name, skip, limit);
         return res.status(201).json({
             data: {
@@ -73,7 +77,7 @@ export const createPlaceHandler = async (
     if (!data.latitude || !data.longitude || !data.name || !data.description) {
         throw new Error("request body must at least include name, longitude, latitude, and description");
     }
-    const cityRegionId = generateS2BigIntIds(req);
+    const cityRegionId = createCityIdString(data.latitude, data.longitude);
     try {
         const createdPlace: Places = await createPlace(data, cityRegionId);
         return res.status(201).json({
@@ -96,8 +100,9 @@ export const updatePlaceHandler = async (
 ): Promise<Response> => {
     const placeId: string = req.params.placeId;
     const data: Partial<PlaceInput> = req.body;
+    const cityRegionId = createCityIdString(data.latitude, data.longitude);
     try {
-        const updatedPlace: Places = await updatePlace(placeId, data);
+        const updatedPlace: Places = await updatePlace(placeId, cityRegionId, data);
         return res.status(201).json({
             data: {
                 updatedPlace

@@ -32,7 +32,7 @@ export class Places {
     description: string
 
     @Index()
-    @Column({type: 'bigint'})
+    @Column()
     cityRegionId: string
 
     @Column()

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import {createUser, deleteUser, retrieveUser, updateUser} from '../services/users';
 import {
-    createHomeCityIdString,
+    createCityIdString,
     createWKTPointString,
 } from "../utils/locationUtils";
 const s2 = require('@radarlabs/s2');
@@ -20,7 +20,7 @@ export const createUserHandler = async (
             lastName: data.lastName,
             age: data.age,
             email: data.email,
-            homeCityId: createHomeCityIdString(data.latitude, data.longitude),
+            homeCityId: createCityIdString(data.latitude, data.longitude),
             locationCoordinates: createWKTPointString(data.latitude, data.longitude),
             points: data.points,
         };
@@ -66,6 +66,8 @@ export const retrieveUserHandler = async (
     }
 }
 
+// TODO: retrieve what related user items
+
 export const updateUserHandler = async (
     req: Request,
     res: Response,
@@ -76,7 +78,7 @@ export const updateUserHandler = async (
         if (data.longitude && data.latitude) {
             data = {
                 ...data,
-                homeCityId: createHomeCityIdString(data.latitude, data.longitude),
+                homeCityId: createCityIdString(data.latitude, data.longitude),
                 locationCoordinates: createWKTPointString(data.latitude, data.longitude),
             };
             // need to delete in order for this to not get returned to user.

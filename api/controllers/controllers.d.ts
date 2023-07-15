@@ -52,6 +52,7 @@ export interface ReviewInput {
 export interface UserLocationDataInput {
     latitude: number;
     longitude: number;
+    userId: string;
 }
 
 export interface CityMapInput {

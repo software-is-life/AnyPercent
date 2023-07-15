@@ -29,8 +29,8 @@ export class CityMap {
     @Column()
     country: string
 
-    @Column({type: 'bigint'})
-    regions: string[]
+    @Column()
+    regions: string
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;

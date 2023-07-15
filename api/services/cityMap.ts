@@ -13,7 +13,7 @@ export const retrieveCityMap = async (cityMapId: string): Promise<CityMap> => {
 
 export const createCityMap = async (data: Partial<CityMapInput>, cityRegionId: string): Promise<CityMap> => {
     return await userLocationDataRepository.save(userLocationDataRepository.create({
-        regions: [cityRegionId],
+        regions: cityRegionId,
         ...data
     }));
 };
@@ -26,7 +26,7 @@ export const updateCityMap = async (cityMapId: string, data: Partial<CityMapInpu
             }
         });
     const newCityMapData = {
-        regions: [data.regionsId, ...cityMap.regions],
+        regions: `${cityMap.regions} ${data.regionsId}` ,
         ...data
     };
     userLocationDataRepository.merge(cityMap, newCityMapData);

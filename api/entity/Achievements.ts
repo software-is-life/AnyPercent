@@ -29,6 +29,13 @@ export class Achievements {
     @Column()
     description: string
 
+    @Column()
+    pointsToAward: number
+
+    // Multipoint string to compare with userAchievements
+    @Column()
+    placesToVisit: string
+
     @Index()
     @Column({ nullable: true })
     author: string

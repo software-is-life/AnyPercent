@@ -8,7 +8,7 @@ import {
 const router = require("express").Router();
 
 router.get("/get", getUsersLocationDataHandler);
-router.get("/get/:userLocationDataId", getUserLocationDataHandler);
+router.get("/get/:userId", getUserLocationDataHandler);
 router.post("/create", createUserLocationDataHandler);
 router.delete("/delete/:userId", deleteUserLocationDataHandler);
 

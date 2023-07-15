@@ -9,15 +9,15 @@ export class UserLocationData {
     @Column()
     uid: string
 
-    @CreateDateColumn({ name: 'created_at'})
-    createdAt: Date
-
     @Column()
     location: string
 
     @Index()
-    @Column({type: 'bigint'})
+    @Column()
     cityRegionId: string
+
+    @CreateDateColumn({ name: 'created_at'})
+    createdAt: Date
 
     @ManyToOne(() => User, (user: User) => user.userLocationDataPoints, {
         createForeignKeyConstraints: false,

@@ -7,7 +7,7 @@ import {
 } from '../services/userLocationData';
 import {UserLocationData} from "../entity/UserLocationData";
 import {DeleteResult} from "typeorm";
-import {generateS2BigIntIds, createWKTPointString} from "../utils/locationUtils";
+import {generateS2BigIntIds, createWKTPointString, createHomeCityIdString} from "../utils/locationUtils";
 import {UserLocationDataInput} from "./controllers";
 
 export const getUsersLocationDataHandler = async (
@@ -15,7 +15,7 @@ export const getUsersLocationDataHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const currentS2LocationCellId = generateS2BigIntIds(req);
+    const currentS2LocationCellId = createHomeCityIdString(Number(req.query.latitude), Number(req.query.longitude))
     const skip = Number(req.query.skip);
     const limit = Number(req.query.limit);
 
@@ -42,7 +42,7 @@ export const getUserLocationDataHandler = async (
     res: Response,
     next: NextFunction
 ): Promise<Response> => {
-    const userId = String(req.query.userId);
+    const userId = String(req.params.userId);
     const skip = Number(req.query.skip);
     const limit = Number(req.query.limit);
     try {
@@ -66,13 +66,13 @@ export const createUserLocationDataHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     const data: UserLocationDataInput = req.body;
-    if (!data.latitude || !data.longitude ) {
+    if (!data.latitude || !data.longitude || !data.userId) {
         throw new Error("In order to create a UserLocationDataPoint you must include all of the following: longitude and latitude ");
     }
-    const cityRegionId = generateS2BigIntIds(req);
-    const pointGeometry = createWKTPointString(data.latitude, data.longitude);
+    const cityRegionId: string = createHomeCityIdString(data.latitude, data.longitude);
+    const pointGeometry: string = createWKTPointString(data.latitude, data.longitude);
     try {
-        const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(pointGeometry, cityRegionId);
+        const createdUserLocationDataPoint: UserLocationData = await createUserLocationDataPoint(data.userId, pointGeometry, cityRegionId);
         return res.status(201).json({
             data: {
                 createdUserLocationDataPoint

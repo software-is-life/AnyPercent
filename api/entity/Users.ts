@@ -14,7 +14,6 @@ import {Routes} from "./Routes";
 import {Reviews} from "./Reviews";
 import {Events} from "./Events";
 import {Places} from "./Places";
-import {Geometry} from "geojson";
 
 export enum Role {
     ADMIN = "admin",

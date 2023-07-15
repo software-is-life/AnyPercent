@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import {redisClient} from "../index";
+import {AppDataSource} from "../data-source";
+import {User} from "../entity/Users";
 // import { retrieveGithubAuthorization } from '../services/auth';
 let session = require('express-session').Session;
+
+const userRepository = AppDataSource.getRepository(User);
 
 export const loginHandler = async (
     req: Request,
@@ -9,24 +13,25 @@ export const loginHandler = async (
     next: NextFunction
 ): Promise<Response> => {
     try {
-        if (true) {
-            // req.session.regenerate((err) => {
-            //     if (err) next(err);
-            //
-            //
-            // });
-
+        // HINT: you will get the email after OAuth2.0 flow
+        const tempEmail = "test@example.com";
+        const user: User = await userRepository.findOneBy({
+            email: tempEmail,
+        });
             // @ts-ignore
-            req.session.user = "SpewpeePeeePPoooooppooooooHead";
+            req.session.user = user.userId;
+        // @ts-ignore
+            req.session.email = user.email;
+        // @ts-ignore
+            req.session.userRole = user.userRole;
             console.log(req.session);
             console.log(req.session.id); // TODO: get this from
             req.session.save((err) => {
                 if (err) next(err);
-                res.status(201).json({
+                return res.status(201).json({
                     message: "sup test"
                 })
             });
-        }
 
     } catch (err: any) {
         console.error(err);

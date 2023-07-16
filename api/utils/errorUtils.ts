@@ -7,5 +7,5 @@ export const errorLogger = (error: Error, request: Request, response: Response, 
 
 export const errorResponder = (error: Error, request: Request, response: Response, next: NextFunction) => {
     // @ts-ignore
-    return response.status(400).send(error.message);
+    response.status(500).send(error.message);
 }

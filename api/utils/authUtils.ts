@@ -5,8 +5,9 @@ export const isAuthenticated = async (req, res, next) => {
     const { id } = req.session;
     if (await redisClient.get(process.env.REDIS_SESSION_KEY_PREFIX+id) !== null) {
         next();
+    } else {
+        res.status(403).send('FORBIDDEN - you need to log back in to refresh your user\'s session token or sign up and create your user profile.');
     }
-    next(Error('FORBIDDEN - you need to log back in to refresh your user\'s session token or sign up and create your user profile.'));
 };
 
 export const isAdmin = (req, res, next) => {
@@ -14,26 +15,28 @@ export const isAdmin = (req, res, next) => {
     const { userRole } = req.session;
     if (userRole === "admin"){
         return next();
+    } else {
+        res.status(401).send('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.');
     }
-    throw new Error('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.');
 };
 
 export const isOwner = (req, res, next) => {
     // @ts-ignore
     const { userRole } = req.session;
     if (userRole === "admin" || userRole === "owner"){
-        return next();
+        next();
+    } else {
+        res.status(401).send('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.');
     }
-    throw new Error('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.');
 };
 
 export const isUser = (req, res, next) => {
     // @ts-ignore
     const { userRole, user } = req.session;
     if ((userRole === "admin" || userRole === "owner" || userRole === "user" ) && (req.params.id && req.params.id === user)){
-        return next();
+        next();
+    } else {
+        res.status(401).send('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.');
     }
-    // TODO: resolve `Error: Can't set headers after they are sent to the client` issue with response object
-    next(Error('UNAUTHORIZED - you are not authorized access this API endpoint with your user role.'));
 };
 

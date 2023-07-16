@@ -1,0 +1,57 @@
+{
+  "name": "anypercent-api",
+  "version": "1.0.0",
+  "description": "anypercent geolocation collec-a-thon backend api.",
+  "main": "index.ts",
+  "keywords": [
+    "geolocation",
+    "collect-a-thon",
+    "location",
+    "fun"
+  ],
+  "author": "Kevin Carr",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/body-parser": "^1.19.2",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.7",
+    "@types/geojson": "^7946.0.10",
+    "@types/morgan": "^1.9.4",
+    "@types/node": "^20.3.1",
+    "@types/passport": "^1.0.12",
+    "ts-node": "10.7.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@radarlabs/s2": "^0.0.5",
+    "bignumber.js": "^9.1.1",
+    "body-parser": "^1.20.2",
+    "connect-redis": "^7.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "geojson": "^0.5.0",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
+    "passport-facebook": "^3.0.0",
+    "passport-github2": "^0.1.12",
+    "passport-google-oidc": "^0.1.0",
+    "passport-http-bearer": "^1.0.1",
+    "redis": "^4.6.7",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.17",
+    "wkx": "^0.5.0"
+  },
+  "scripts": {
+    "start": "ts-node api/index.ts",
+    "local": "pscale connect any-percent dev-branch-seed --execute 'ts-node api/index.ts'",
+    "typeorm": "typeorm-ts-node-commonjs"
+  }
+}

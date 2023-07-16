@@ -102,7 +102,7 @@ app.use('/api/v1.0/tags', tagsRouter);
 // TODO: include more middleware, especially auth.
 // UNHANDLED ROUTEb
 app.use(errorLogger);
-app.use(errorResponder);
+// app.use(errorResponder);
 
 app.listen(8080);
 console.log(`Server started on port: ${8080}`);
